@@ -1,8 +1,7 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { Box } from "@mui/material";
 import { Poppins } from "@next/font/google";
-import './globals.css';
-import { Footer, Navbar } from "../components";
+import "./globals.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
