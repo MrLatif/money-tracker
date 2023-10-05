@@ -1,6 +1,8 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { Box } from "@mui/material";
 import { Poppins } from "@next/font/google";
+import './globals.css';
+import { Footer, Navbar } from "../components";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,7 +22,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={poppins.className}>
-        <body>{children}</body>
+        <body>
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );
