@@ -14,6 +14,7 @@ export const metadata = {
   description: "Track your expenses",
 };
 
+
 export default function RootLayout({
   children,
 }: {
