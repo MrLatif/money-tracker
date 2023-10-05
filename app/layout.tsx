@@ -1,24 +1,27 @@
-import { Footer, Navbar } from '../components'
-import './globals.css'
-import type { Metadata } from 'next'
+import { ClerkProvider } from "@clerk/nextjs";
+import { Box } from "@mui/material";
+import { Poppins } from "@next/font/google";
 
-export const metadata: Metadata = {
-  title: 'Money Tracker',
-  description: 'Stop wasting, start saving',
-}
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
+export const metadata = {
+  title: "Budget Tracker",
+  description: "Track your expenses",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="relative">
-        <Navbar/>
-        {children}
-        <Footer/>
-      </body>
-    </html>
-  )
+    <ClerkProvider>
+      <html lang="en" className={poppins.className}>
+        <body>{children}</body>
+      </html>
+    </ClerkProvider>
+  );
 }
