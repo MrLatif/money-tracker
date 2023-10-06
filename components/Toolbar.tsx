@@ -83,7 +83,7 @@ function ResponsiveAppBar() {
               alignItems={"center"}
               gap={2}
               borderRadius={"90px"}
-              bgcolor={"#242424"}>
+              bgcolor={"#333333"}>
               <Typography
                 color={"rgba(255, 255, 255, 0.95)"}
                 textAlign={"center"}
