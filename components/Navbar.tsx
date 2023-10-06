@@ -1,6 +1,11 @@
+"use client";
+
 import Link from "next/link"
 import Image from "next/image"
 import { CustomButton } from "."
+import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs"
+import { Button } from "@mui/material";
+
 
 const Navbar = () => {
   return (
@@ -15,12 +20,20 @@ const Navbar = () => {
             className="object-contain"
           />
         </Link>
-
-        <CustomButton
-          title="Sign In"
-          btnType="button"
-          containerStyles="text-emerald-600 rounded-full bg-white min-w-[130px]"
-        />
+        <SignedIn>
+          <Link href="/dashboard">
+            <button className="text-emerald-600 rounded-full bg-white min-w-[130px] min-h-[50px]">
+              Dashboard
+            </button>
+          </Link>
+        </SignedIn>
+        <SignedOut>
+          <SignInButton redirectUrl="localhost:3000/dashboard">
+            <button className="text-emerald-600 rounded-full bg-white min-w-[130px] min-h-[50px]">
+              Sign In
+            </button>
+          </SignInButton>
+        </SignedOut>
       </nav>
     </header>
   );

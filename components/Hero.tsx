@@ -2,6 +2,8 @@
 
 import Image from "next/image"
 import { CustomButton } from ".";
+import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import Link from "next/link";
 
 const Hero = () => {
   const handleScroll = () => {
@@ -15,22 +17,36 @@ const Hero = () => {
           Stay on top of your budget with our intuitive — Money Tracker app
         </h1>
 
-        <p className="hero__subtitle">
+        <p className="hero__subtitle pb-10">
           Effortlessly monitor your expenses and manage your finances
         </p>
 
-        <CustomButton
+        {/* <CustomButton
           title="Get Started"
           containerStyles="bg-emerald-600 text-white rounded-full mt-10"
           handleClick={handleScroll}
-        />
+        /> */}
+
+        <SignedIn>
+          <Link href="/dashboard">
+            <button className="text-white rounded-full bg-emerald-600 min-w-[130px] min-h-[50px]">
+              Get Started
+            </button>
+          </Link>
+        </SignedIn>
+        <SignedOut>
+          <SignInButton redirectUrl="localhost:3000/dashboard">
+            <button className="text-white rounded-full bg-emerald-600 min-w-[130px] min-h-[50px]">
+              Get Started
+            </button>
+          </SignInButton>
+        </SignedOut>
       </div>
       <div className="hero__image-container">
         <div className="hero__image">
           <Image src="/money.png" alt="hero" fill className="object-contain" />
         </div>
-        <div className="hero__image-overlay">
-        </div>
+        <div className="hero__image-overlay"></div>
       </div>
     </div>
   );
