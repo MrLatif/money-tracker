@@ -1,7 +1,8 @@
 import React from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, createTheme } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import { theme } from ".";
 
 const WelcomeCard = () => {
   const { user } = useUser();
@@ -9,15 +10,23 @@ const WelcomeCard = () => {
   return (
     <Box
       className="hi-box"
-      width={"60%"}
       height={"auto"}
       borderRadius={"16px"}
       boxShadow={"0px 0px 15px 0px rgba(0, 0, 0, 0.10)"}
       display={"flex"}
       flexDirection={"row"}
       justifyContent={"center"}
-      sx={{ bgcolor: "#323233", color: "white" }}>
-      <Grid container spacing={2}>
+      sx={{
+        bgcolor: "#323233",
+        color: "white",
+        [theme.breakpoints.down("xl")]: {
+          width: "63%",
+        },
+        [theme.breakpoints.up("xl")]: {
+          width: "53%",
+        },
+      }}>
+      <Grid container spacing={2} margin={-3}>
         <Grid item xs={12} md={8}>
           <Box
             display={"inline-flex"}
@@ -32,14 +41,14 @@ const WelcomeCard = () => {
               <Typography
                 color={"#FFF"}
                 fontFamily={"Poppins"}
-                fontSize={"22px"}
+                fontSize={"18px"}
                 fontWeight={600}>
                 Hi {user?.firstName}
               </Typography>
               <Typography
                 color={"#FFF"}
                 fontFamily={"Poppins"}
-                fontSize={"18px"}
+                fontSize={"16px"}
                 fontWeight={400}>
                 Welcome! Manage your all tasks & daily work here.
               </Typography>
@@ -48,18 +57,18 @@ const WelcomeCard = () => {
               display={"flex"}
               flexDirection={"row"}
               alignItems={"center"}
-              marginTop={3}>
+              marginTop={2}>
               <Typography
                 color={"#FFF"}
                 fontFamily={"Poppins"}
-                fontSize={16}
+                fontSize={14}
                 fontWeight={400}>
                 Your Score
               </Typography>
               <Typography
                 color={"#99FC03"}
                 fontFamily={"Poppins"}
-                fontSize={34}
+                fontSize={20}
                 fontWeight={800}
                 marginLeft={1}>
                 A+
@@ -69,7 +78,7 @@ const WelcomeCard = () => {
         </Grid>
         <Grid item xs={4} md={4}>
           <Box>
-            <img src="face.svg" width={200} height={200} style={{}} />
+            <img src="face.svg" width={170} height={170} />
           </Box>
         </Grid>
       </Grid>

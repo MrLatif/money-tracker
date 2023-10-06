@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
 import WelcomeCard from "./WelcomeCard";
+import Stats from "./Stats";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -20,7 +21,7 @@ function CustomTabPanel(props: TabPanelProps) {
       {...other}>
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={"div"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -59,13 +60,15 @@ const Dashboard = () => {
             flexDirection={"column"}
             alignItems={"flex-start"}
             gap={3}>
-            <Typography color={"#FFF"} fontSize={28} fontWeight={600}>
+            <Typography color={"#FFF"} fontSize={24} fontWeight={600}>
               Dashboard
             </Typography>
             <Box
               display={"flex"}
               paddingLeft={0}
               alignItems={"center"}
+              justifyContent={"space-between"}
+              width={1000}
               gap={"70px"}
               borderRadius={"8px"}>
               <Tabs
@@ -78,15 +81,17 @@ const Dashboard = () => {
                   },
                 }}>
                 <Tab
-                  label="Booking"
+                  label="Stats"
                   {...a11yProps(0)}
                   sx={{
+                    minWidth: 150,
+                    width: 150,
                     bgcolor: "none",
                     paddingBottom: 0,
                     color: "#FFF",
                     fontFamily: "Poppins",
                     fontWeight: 400,
-                    fontSize: "18px",
+                    fontSize: "16px",
                     textTransform: "none",
                     "&.Mui-selected": {
                       color: "#FFF",
@@ -95,32 +100,17 @@ const Dashboard = () => {
                   }}
                 />
                 <Tab
-                  label="Amenities"
+                  label="Expenses"
                   {...a11yProps(1)}
                   sx={{
+                    minWidth: 150,
+                    width: 150,
                     bgcolor: "none",
                     paddingBottom: 0,
                     color: "#FFF",
                     fontFamily: "Poppins",
                     fontWeight: 400,
-                    fontSize: "18px",
-                    textTransform: "none",
-                    "&.Mui-selected": {
-                      color: "#FFF",
-                      fontFamily: "Poppins",
-                    },
-                  }}
-                />
-                <Tab
-                  label="Tasks"
-                  {...a11yProps(2)}
-                  sx={{
-                    bgcolor: "none",
-                    paddingBottom: 0,
-                    color: "#FFF",
-                    fontFamily: "Poppins",
-                    fontWeight: 400,
-                    fontSize: "18px",
+                    fontSize: "16px",
                     textTransform: "none",
                     "&.Mui-selected": {
                       color: "#FFF",
@@ -131,13 +121,10 @@ const Dashboard = () => {
               </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-              Item Ones
+              <Stats />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
               Item Two
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-              Item Three
             </CustomTabPanel>
           </Box>
         </Box>
