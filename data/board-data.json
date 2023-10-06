@@ -11,9 +11,26 @@
             {
               "priority": 0,
               "title": "Mobile app login process prototype.",
-              "chat": 1,
-              "attachment": 2
+              "chat": 10,
+              "attachment": 4
             }
         ]
+    },
+    {
+      "name": "In Progress",
+      "items": [
+        {
+          "priority": 0,
+          "title": "Research and strategy for upcoming project.",
+          "chat": 0,
+          "attachment": 3
+        },
+        {
+          "priority": 0,
+          "title": "Mobile app login process prototype.",
+          "chat": 1,
+          "attachment": 2
+        }
+      ]
     }
 ]

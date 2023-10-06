@@ -5,7 +5,6 @@ import {
   PaperClipIcon,
 } from "@heroicons/react/24/outline";
 import { Paper } from '@mui/material';
-import Image from 'next/image';
 import CardItem from './CardItem';
 
 const Kanban = () => {
@@ -30,7 +29,7 @@ const Kanban = () => {
             <CardItem />
             <CardItem />
             <CardItem />
-            
+
           </div>
         </div>
       </div>

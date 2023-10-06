@@ -3,6 +3,8 @@ import {
   PaperClipIcon,
 } from "@heroicons/react/24/outline";
 import React from 'react'
+import Image from "next/image";
+
 
 const CardItem = () => {
   return (
