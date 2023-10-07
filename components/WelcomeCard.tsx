@@ -37,19 +37,19 @@ const WelcomeCard = () => {
               display={"flex"}
               flexDirection={"column"}
               alignItems={"flex-start"}
-              gap={"10px"}>
+              gap={"6px"}>
               <Typography
                 color={"#FFF"}
                 fontFamily={"Poppins"}
-                fontSize={"18px"}
+                fontSize={"20px"}
                 fontWeight={600}>
                 Hi {user?.firstName}
               </Typography>
               <Typography
                 color={"#FFF"}
                 fontFamily={"Poppins"}
-                fontSize={"16px"}
-                fontWeight={400}>
+                fontSize={"17px"}
+                fontWeight={500}>
                 Welcome! Manage your all tasks & daily work here.
               </Typography>
             </Box>
@@ -61,7 +61,7 @@ const WelcomeCard = () => {
               <Typography
                 color={"#FFF"}
                 fontFamily={"Poppins"}
-                fontSize={14}
+                fontSize={15}
                 fontWeight={400}>
                 Your Score
               </Typography>

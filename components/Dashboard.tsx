@@ -1,7 +1,8 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
 import WelcomeCard from "./WelcomeCard";
-import Stats from "./Stats";
+import Stats from "./Data";
+import Data from "./Data";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -121,7 +122,7 @@ const Dashboard = () => {
               </Tabs>
             </Box>
             <CustomTabPanel value={value} index={0}>
-              <Stats />
+              <Data />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
               Item Two

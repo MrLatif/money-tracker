@@ -1,21 +1,16 @@
-import { Box, createTheme } from "@mui/material";
 import React from "react";
+import { Box, CircularProgress } from "@mui/material";
 import { theme } from ".";
+import FacebookCircularProgress from "./FacebookCircularProgress";
 
 const Stats = () => {
   return (
     <Box
       display={"flex"}
-      padding={"24px 28px"}
-      marginLeft={-3}
-      flexDirection={"column"}
+      justifyContent={"center"}
       alignItems={"flex-start"}
-      gap={6}
-      borderRadius={4}
+      gap={"11px"}
       sx={{
-        background:
-          "linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(113, 113, 113, 0.10) 100%)",
-        boxShadow: "0px 0px 15px 0px rgba(0, 0, 0, 0.10)",
         [theme.breakpoints.down("xl")]: {
           width: "678px",
         },
@@ -25,22 +20,20 @@ const Stats = () => {
       }}>
       <Box
         display={"flex"}
-        justifyContent={"space-between"}
-        alignItems={"flex-start"}
-        bgcolor={"red"}
+        padding={"27.4px"}
+        justifyContent={"center"}
+        alignItems={"center"}
+        gap={"11px"}
+        flexShrink={0}
+        borderRadius={"27.4px"}
+        border={"1px solid #414141"}
+        width={"auto"}
+        height={"auto"}
+        boxShadow={"0px -4px 37px 0px rgba(50, 50, 50, 0.30)"}
         sx={{
-          [theme.breakpoints.down("xl")]: {
-            width: "620px",
-          },
-          [theme.breakpoints.up("xl")]: {
-            width: "650px",
-          },
+          background: "linear-gradient(180deg, #383838 0%, #29292A 100%)",
         }}>
-        <Box
-          className="$789"
-          display={"flex"}
-          flexDirection={"column"}
-          alignItems={"flex-start"}></Box>
+        <FacebookCircularProgress />
       </Box>
     </Box>
   );
