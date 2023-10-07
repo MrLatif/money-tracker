@@ -7,3 +7,15 @@ export interface CustomButtonProps {
     btnType?: "button" | "submit"
 
 }
+
+export interface DataProps {
+    data: [
+        name: string,
+        items: [
+            priority: number,
+            title: string,
+            chat: number,
+            attachment: number
+        ]
+    ]
+}

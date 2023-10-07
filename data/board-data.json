@@ -1,20 +1,20 @@
 [
     {
-        "name": "Backlog",
-        "items": [
-            {
-              "priority": 0,
-              "title": "Company website redesign.",
-              "chat": 1,
-              "attachment": 2
-            },
-            {
-              "priority": 0,
-              "title": "Mobile app login process prototype.",
-              "chat": 10,
-              "attachment": 4
-            }
-        ]
+      "name": "Backlog",
+      "items": [
+        {
+          "priority": 0,
+          "title": "Company website redesign.",
+          "chat": 1,
+          "attachment": 2
+        },
+        {
+          "priority": 2,
+          "title": "Mobile app login process prototype.",
+          "chat": 10,
+          "attachment": 4
+        }
+      ]
     },
     {
       "name": "In Progress",
@@ -24,11 +24,45 @@
           "title": "Research and strategy for upcoming project.",
           "chat": 0,
           "attachment": 3
+        }
+      ]
+    },
+    {
+      "name": "In Review",
+      "items": [
+        {
+          "priority": 2,
+          "title": "Dashboard layout redesign.",
+          "chat": 13,
+          "attachment": 2
         },
         {
           "priority": 0,
-          "title": "Mobile app login process prototype.",
-          "chat": 1,
+          "title": "Social media posts.",
+          "chat": 0,
+          "attachment": 0
+        }
+      ]
+    },
+    {
+      "name": "Completed",
+      "items": [
+        {
+          "priority": 0,
+          "title": "Review client spec document and give feedback.",
+          "chat": 13,
+          "attachment": 2
+        },
+        {
+          "priority": 1,
+          "title": "Navigation designs.",
+          "chat": 0,
+          "attachment": 0
+        },
+        {
+          "priority": 2,
+          "title": "Create style guide based on previous feedback.",
+          "chat": 5,
           "attachment": 2
         }
       ]
