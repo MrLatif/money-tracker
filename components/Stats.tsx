@@ -2,6 +2,7 @@ import React from "react";
 import { Box, CircularProgress } from "@mui/material";
 import { theme } from ".";
 import FacebookCircularProgress from "./FacebookCircularProgress";
+import TasksDone from "./TasksDone";
 
 const Stats = () => {
   return (
@@ -9,6 +10,7 @@ const Stats = () => {
       display={"flex"}
       justifyContent={"center"}
       alignItems={"flex-start"}
+      marginLeft={-3}
       gap={"11px"}
       sx={{
         [theme.breakpoints.down("xl")]: {
@@ -26,15 +28,15 @@ const Stats = () => {
         gap={"11px"}
         flexShrink={0}
         borderRadius={"27.4px"}
-        border={"1px solid #414141"}
-        width={"auto"}
-        height={"auto"}
+        width={"200px"}
+        height={"200px"}
         boxShadow={"0px -4px 37px 0px rgba(50, 50, 50, 0.30)"}
         sx={{
           background: "linear-gradient(180deg, #383838 0%, #29292A 100%)",
         }}>
         <FacebookCircularProgress />
       </Box>
+      <TasksDone />
     </Box>
   );
 };

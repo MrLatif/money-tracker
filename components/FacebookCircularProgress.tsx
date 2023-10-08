@@ -37,7 +37,7 @@ export default function FacebookCircularProgress(props: CircularProgressProps) {
           },
         }}
         size={140}
-        thickness={4}
+        thickness={4.3}
         {...props}
       />
       <Box
