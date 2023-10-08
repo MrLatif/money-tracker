@@ -13,11 +13,22 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 const Kanban = () => {
   const [ready, setReady] = useState(false);
+  const [boardData, setBoardData] = useState(BoardData);
+
   useEffect(() => {
     if (process.browser) {
       setReady(true);
     }
   }, []);
+
+  const onDragEnd = (re: any) => {
+    console.log(re);
+    let newBoardData = boardData;
+    var dragItem = newBoardData[parseInt(re.souce.droppableId)].items[re.source.index];
+    newBoardData[parseInt(re.source.droppableId)].items.splice(re.souce.index,1);
+    newBoardData[parseInt(re.destination.droppableId)].items.splice(re.destination.index,0, dragItem);
+    setBoardData(newBoardData);
+  }
   return (
     <>
       <div className="p-10">
@@ -29,7 +40,7 @@ const Kanban = () => {
 
         {/* Board columns */}
         {ready && (
-          <DragDropContext>
+          <DragDropContext onDragEnd={onDragEnd}>
             <div className="grid grid-cols-4 gap-5 my-5">
               {BoardData.map((board, index) => {
                 return (
