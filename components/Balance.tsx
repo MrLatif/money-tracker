@@ -1,6 +1,7 @@
 import { Box, Button, Typography, createTheme } from "@mui/material";
 import React from "react";
 import { theme } from ".";
+import { currencyFormatter } from "../lib/utils";
 const Balance = () => {
   return (
     <Box
@@ -49,7 +50,7 @@ const Balance = () => {
               fontSize={44}
               fontWeight={600}
               color={"#FFF"}>
-              $789.80
+              {currencyFormatter(789.8)}
             </Typography>
 
             <img

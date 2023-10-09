@@ -13,7 +13,6 @@ export const metadata = {
   description: "Track your expenses",
 };
 
-
 export default function RootLayout({
   children,
 }: {
@@ -22,9 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={poppins.className}>
-        <body>
-          {children}
-        </body>
+        <body>{children}</body>
       </html>
     </ClerkProvider>
   );

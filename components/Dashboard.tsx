@@ -125,7 +125,7 @@ const Dashboard = () => {
               <Data />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              Item Two
+              {/* <Expenses /> */}
             </CustomTabPanel>
           </Box>
         </Box>
