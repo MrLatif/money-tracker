@@ -42,7 +42,11 @@ function KanbanBoard() {
         px-[40]
     "
     >
-      <DndContext sensors={sensors} onDragStart={onDragStart} onDragEnd={onDragEnd}>
+      <DndContext
+        sensors={sensors}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
+      >
         <div className="m-auto flex gap-2">
           <div className="flex gap-4">
             <SortableContext items={columnsId}>
@@ -51,6 +55,7 @@ function KanbanBoard() {
                   key={col.id}
                   column={col}
                   deleteColumn={deleteColumn}
+                  updateColumn={updateColumn}
                 />
               ))}
             </SortableContext>
@@ -79,18 +84,19 @@ function KanbanBoard() {
             Add Column
           </button>
         </div>
-        {
-        createPortal(
-        <DragOverlay>
-          {activeColumn && (
-            <ColumnContainer 
-              column={activeColumn}
-              deleteColumn={deleteColumn}
-            />
+        {typeof document !== "undefined" &&
+          createPortal(
+            <DragOverlay>
+              {activeColumn && (
+                <ColumnContainer
+                  column={activeColumn}
+                  deleteColumn={deleteColumn}
+                  updateColumn={updateColumn}
+                />
+              )}
+            </DragOverlay>,
+            document.body
           )}
-        </DragOverlay>,
-        document.body
-      )}
       </DndContext>
     </div>
   );
@@ -119,6 +125,15 @@ function KanbanBoard() {
       setActiveColumn(event.active.data.current.column);
       return;
     }
+  }
+
+  function updateColumn(id: Id, title: string){
+    const newColumns = columns.map(col => {
+      if(col.id !== id) return col;
+      return {...col, title};
+    });
+
+    setColumns(newColumns);
   }
 
   function deleteColumn(id: Id) {

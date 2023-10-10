@@ -9,7 +9,7 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Budget Tracker",
+  title: "Money Tracker",
   description: "Track your expenses",
 };
 
