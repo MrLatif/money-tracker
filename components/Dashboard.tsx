@@ -3,6 +3,7 @@ import React from "react";
 import WelcomeCard from "./WelcomeCard";
 import Stats from "./Data";
 import Data from "./Data";
+import Expenses from "./Expenses";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -125,7 +126,7 @@ const Dashboard = () => {
               <Data />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              {/* <Expenses /> */}
+              <Expenses />
             </CustomTabPanel>
           </Box>
         </Box>
