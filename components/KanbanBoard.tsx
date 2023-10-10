@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
-  import { PlusCircleIcon,  } from '@heroicons/react/24/outline';
+"use client";
+
+import React, { useState } from "react";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import { Column } from "../types";
+import ColumnContainer from "./ColumnContainer";
 
 function KanbanBoard() {
-  const [columns, setColumns] = useState([]);
+  const [columns, setColumns] = useState<Column[]>([]);
 
-  function createNewColumn(){
+  console.log(columns);
 
-  }
-  
   return (
     <div
       className="
@@ -21,7 +23,12 @@ function KanbanBoard() {
         px-[40]
     "
     >
-      <div className='m-auto'>
+      <div className="m-auto flex gap-2">
+        <div className="flex gap-4">
+          {columns.map((col) => (
+            <ColumnContainer key={col.id} column={col} />
+          ))}
+        </div>
         <button
           onClick={() => {
             createNewColumn();
@@ -42,12 +49,25 @@ function KanbanBoard() {
             gap-2
             "
         >
-          <PlusCircleIcon className='w-6 h-6'/>
+          <PlusCircleIcon className="w-6 h-6" />
           Add Column
         </button>
       </div>
     </div>
   );
+
+  function createNewColumn() {
+    const columnToAdd: Column = {
+      id: generateId(),
+      title: `Column ${columns.length + 1}`,
+    };
+
+    setColumns([...columns, columnToAdd]);
+  }
 }
 
-export default KanbanBoard
+function generateId() {
+  return Math.floor(Math.random() * 10001);
+}
+
+export default KanbanBoard;
