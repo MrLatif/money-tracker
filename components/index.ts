@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import TopBar from "./TopBar";
 import SideBar from "./SideBar";
+import KanbanBoard from "./KanbanBoard";
 
 export {
     Hero,
@@ -11,5 +12,6 @@ export {
     Footer,
     Navbar,
     TopBar,
-    SideBar
+    SideBar,
+    KanbanBoard
 }
