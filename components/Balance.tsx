@@ -2,6 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import { theme } from ".";
 import { currencyFormatter } from "../lib/utils";
+import Image from "next/image";
 const Balance = () => {
   return (
     <Box
@@ -53,8 +54,9 @@ const Balance = () => {
               {currencyFormatter(789.8)}
             </Typography>
 
-            <img
-              src="./arrow-up.svg"
+            <Image
+              src={"./arrow-up.svg"}
+              alt={"arrow up"}
               style={{
                 transform: "rotate(180deg)",
               }}
@@ -81,7 +83,7 @@ const Balance = () => {
               minWidth: 26,
               minWeight: 26,
             }}>
-            <img src="./more.svg" />
+            <Image src={"./more.svg"} alt={"more"} />
           </Button>
         </Box>
       </Box>

@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
+import Image from "next/image";
 
 function ResponsiveAppBar() {
   const { user } = useUser();
@@ -44,7 +45,8 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
           <Box display={"inline-flex"} alignItems={"center"}>
-            <img src="logo.svg" width={34} height={25} />
+            <Image src={"logo.svg"} alt={"logo"} />
+
             <Typography
               color={"#97F704"}
               fontFamily={"Poppins"}
