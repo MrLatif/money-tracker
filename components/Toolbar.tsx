@@ -45,7 +45,7 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
           <Box display={"inline-flex"} alignItems={"center"}>
-            <Image src={"logo.svg"} alt={"logo"} />
+            {/* <Image src={"logo.svg"} alt={"logo"} width={500} height={75} /> */}
 
             <Typography
               color={"#97F704"}

@@ -24,7 +24,7 @@ const TasksDone = () => {
         },
         background: "linear-gradient(180deg, #383838 0%, #29292A 100%)",
       }}>
-      <Image src={"/tasks.svg"} alt={"tasks"} />
+      <Image src={"/tasks.svg"} alt={"tasks"} width={100} height={100} />
 
       <Box display={"flex"} flexDirection={"row"} alignItems={"center"} gap={2}>
         <Typography

@@ -60,6 +60,8 @@ const Balance = () => {
               style={{
                 transform: "rotate(180deg)",
               }}
+              width={26}
+              height={26}
             />
           </Box>
           <Typography
@@ -83,7 +85,7 @@ const Balance = () => {
               minWidth: 26,
               minWeight: 26,
             }}>
-            <Image src={"./more.svg"} alt={"more"} />
+            <Image src={"./more.svg"} alt={"more"} width={24} height={24} />
           </Button>
         </Box>
       </Box>
