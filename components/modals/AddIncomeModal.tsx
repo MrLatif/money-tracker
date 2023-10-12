@@ -16,7 +16,8 @@ const AddIncomeModal = ({
 }) => {
   const amountRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLInputElement | null>(null);
-  const { income } = useContext(financeContext);
+  const { income, addIncomeItem, removeIncomeItem } =
+    useContext(financeContext);
 
   const addIncomeHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,15 +26,24 @@ const AddIncomeModal = ({
       description: descriptionRef.current?.value,
       createdAt: new Date(),
     };
-
-    if (descriptionRef.current && amountRef.current) {
-      descriptionRef.current.value = "";
-      amountRef.current.value = "";
+    try {
+      await addIncomeItem(newIncome);
+      if (descriptionRef.current && amountRef.current) {
+        descriptionRef.current.value = "";
+        amountRef.current.value = "";
+      }
+    } catch (error: any) {
+      console.log(error.message);
     }
   };
 
   const deleteIncomeEntryHandler = async (incomeId: string | undefined) => {
-    if (incomeId !== undefined) {
+    // if (incomeId !== undefined) {
+    // }
+    try {
+      removeIncomeItem(incomeId);
+    } catch (error: any) {
+      console.log(error.message);
     }
   };
 
@@ -85,7 +95,6 @@ const AddIncomeModal = ({
                     onClick={() => {
                       deleteIncomeEntryHandler(i.id);
                     }}>
-                    {" "}
                     <FaRegTrashAlt />
                   </button>
                 </p>

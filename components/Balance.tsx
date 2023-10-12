@@ -50,7 +50,7 @@ const Balance = () => {
               fontSize={44}
               fontWeight={600}
               color={"#FFF"}>
-              {currencyFormatter(789.8)}
+              {currencyFormatter("789.8")}
             </Typography>
 
             <img
