@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import { Column, Id } from "../types";
+import { Column, Id, Task } from "../types";
 import ColumnContainer from "./ColumnContainer";
 import { 
   DndContext, 
@@ -18,6 +18,8 @@ import { createPortal } from "react-dom";
 function KanbanBoard() {
   const [columns, setColumns] = useState<Column[]>([]);
   const columnsId = useMemo(() => columns.map(col => col.id), [columns]);
+
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   console.log(columns);
 
@@ -56,6 +58,10 @@ function KanbanBoard() {
                   column={col}
                   deleteColumn={deleteColumn}
                   updateColumn={updateColumn}
+                  createTask={createTask}
+                  tasks={tasks.filter((task) => task.columnId === col.id)}
+                  deleteTask={deleteTask}
+                  updateTask={updateTask}
                 />
               ))}
             </SortableContext>
@@ -92,6 +98,12 @@ function KanbanBoard() {
                   column={activeColumn}
                   deleteColumn={deleteColumn}
                   updateColumn={updateColumn}
+                  createTask={createTask}
+                  tasks={tasks.filter(
+                    (task) => task.columnId === activeColumn.id
+                  )}
+                  deleteTask={deleteTask}
+                  updateTask={updateTask}
                 />
               )}
             </DragOverlay>,
@@ -125,6 +137,30 @@ function KanbanBoard() {
       setActiveColumn(event.active.data.current.column);
       return;
     }
+  }
+
+  function updateTask(id: Id, content: string){
+    const newTasks = tasks.map(task => {
+      if(task.id !==id) return task;
+      return {...task, content};
+    });
+
+    setTasks(newTasks)
+  }
+
+  function deleteTask(id: Id){
+    const newTasks = tasks.filter(task => task.id !== id);
+    setTasks(newTasks);
+  }
+
+  function createTask(columnId: Id){
+    const newTask: Task = {
+      id: generateId(),
+      columnId,
+      content: `Task ${tasks.length + 1}`
+    }
+
+    setTasks([...tasks, newTask]);
   }
 
   function updateColumn(id: Id, title: string){

@@ -1,17 +1,31 @@
-import { Column, Id } from "../types";
+import { Column, Id, Task } from "../types";
 import TrashIcon from "../icons/TrashIcon";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useState } from "react";
+import { PlusCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
+import TaskCard from "./TaskCard";
 
 interface Props {
   column: Column;
+  tasks: Task[];
   deleteColumn: (id: Id) => void;
-  updateColumn: (id: Id, title: string) => void;  
+  updateColumn: (id: Id, title: string) => void;
+  createTask: (columnId: Id) => void;
+  deleteTask: (id: Id) => void;
+  updateTask: (id: Id, content: string) => void;
 }
 
 function ColumnContainer(props: Props) {
-  const { column, deleteColumn, updateColumn } = props;
+  const {
+    column,
+    deleteColumn,
+    updateColumn,
+    createTask,
+    tasks,
+    deleteTask,
+    updateTask,
+  } = props;
   
 
   const [editMode, setEditMode] = useState(false);
@@ -28,7 +42,8 @@ function ColumnContainer(props: Props) {
     data: {
       type: "Column",
       column,
-    } 
+    },
+    disabled: editMode,
   });
 
   const style = {
@@ -142,10 +157,25 @@ function ColumnContainer(props: Props) {
           <TrashIcon />
         </button>
       </div>
+      
+      
       {/* Column task container */}
-      <div className="flex flex-grow">Content</div>
+      <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">
+        {tasks.map(task=>(
+          <TaskCard key={task.id} task={task} deleteTask={deleteTask} updateTask={updateTask}/>
+        ))}
+      </div>
+      
+      
       {/* Column footer */}
-      <div>Footer</div>
+      <button 
+      onClick={() => {
+        createTask(column.id);
+      }} 
+      className="flex gap-2 items-center border-columnBackgroundColor boder-2 rounded-md p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-rose-500 active:bg-black">
+        <PlusCircleIcon className="w-6 h-6"/>
+        Add task
+      </button>
     </div>
   );
 }
