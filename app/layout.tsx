@@ -1,18 +1,11 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import { Box } from "@mui/material";
-import { Poppins } from "@next/font/google";
 import "./globals.css";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
 
 export const metadata = {
   title: "Budget Tracker",
   description: "Track your expenses",
 };
-
 
 export default function RootLayout({
   children,
@@ -21,10 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className={poppins.className}>
-        <body>
-          {children}
-        </body>
+      <html lang="en">
+        <body>{children}</body>
       </html>
     </ClerkProvider>
   );
