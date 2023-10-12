@@ -5,9 +5,9 @@ function ExpenseCategoryItem({
   title,
   total,
 }: {
-  color: string;
-  title: string;
-  total: number;
+  color?: string;
+  title?: string;
+  total?: number;
 }) {
   return (
     <button>
@@ -19,7 +19,7 @@ function ExpenseCategoryItem({
           />
           <h4 className="capitalize">{title}</h4>
         </div>
-        <p>{currencyFormatter(total)}</p>
+        <p>{total && currencyFormatter(total)}</p>
       </div>
     </button>
   );

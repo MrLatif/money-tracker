@@ -10,19 +10,35 @@ import {
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { db } from "../firebase";
 
+interface IncomeProps {
+  createdAt?: Date;
+  id?: string;
+  description?: string;
+  amount?: number;
+}
+interface ExpensesProps {
+  id?: string;
+  color?: string;
+  items?: [
+    {
+      amount?: number;
+      createdAt?: Date;
+      id?: string;
+    }
+  ];
+  title?: string;
+  total?: number;
+}
 interface FinanceContextData {
-  income: {
-    createdAt?: Date;
-    id?: string;
-    description?: string;
-    amount?: number;
-  }[];
+  income: IncomeProps[];
+  expenses: ExpensesProps[];
   addIncomeItem: (newIncome: any) => Promise<void>;
   removeIncomeItem: (incomeId: any) => Promise<void>;
 }
 
 export const financeContext = createContext<FinanceContextData>({
   income: [],
+  expenses: [],
   addIncomeItem: async () => {},
   removeIncomeItem: async () => {},
 });
@@ -34,9 +50,8 @@ interface FinanceContextProviderProps {
 export default function FinanceContextProvider({
   children,
 }: FinanceContextProviderProps) {
-  const [income, setIncome] = useState<
-    { createdAt?: Date; id?: string; description?: string; amount?: number }[]
-  >([]);
+  const [income, setIncome] = useState<IncomeProps[]>([]);
+  const [expenses, setExpenses] = useState<ExpensesProps[]>([]);
 
   const addIncomeItem = async (newIncome: any) => {
     const collectionRef = collection(db, "income");
@@ -74,6 +89,7 @@ export default function FinanceContextProvider({
 
   const values: FinanceContextData = {
     income,
+    expenses,
     addIncomeItem,
     removeIncomeItem,
   };
@@ -90,7 +106,21 @@ export default function FinanceContextProvider({
       });
       setIncome(data);
     };
+    const getExpensesData = async () => {
+      const collectionRef = collection(db, "expenses");
+      const docsSnap = await getDocs(collectionRef);
+
+      const data = docsSnap.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
+      setExpenses(data);
+    };
+
     getIncomeData();
+    getExpensesData();
   }, []);
   return (
     <financeContext.Provider value={values}>{children}</financeContext.Provider>

@@ -22,7 +22,7 @@ const AddIncomeModal = ({
   const addIncomeHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     const newIncome = {
-      amount: amountRef.current?.value,
+      amount: amountRef.current && +amountRef.current.value,
       description: descriptionRef.current?.value,
       createdAt: new Date(),
     };
@@ -38,8 +38,6 @@ const AddIncomeModal = ({
   };
 
   const deleteIncomeEntryHandler = async (incomeId: string | undefined) => {
-    // if (incomeId !== undefined) {
-    // }
     try {
       removeIncomeItem(incomeId);
     } catch (error: any) {

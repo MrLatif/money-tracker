@@ -3,7 +3,23 @@ import React from "react";
 import { theme } from ".";
 import { currencyFormatter } from "../lib/utils";
 import Image from "next/image";
+import { useState, useContext, useEffect } from "react";
+import { financeContext } from "../lib/store/finance-context";
+
 const Balance = () => {
+  const [balance, setBalance] = useState(0);
+  const { expenses, income } = useContext(financeContext);
+
+  useEffect(() => {
+    const newBalance =
+      income.reduce((total, i) => {
+        return total + (i.amount || 0);
+      }, 0) -
+      expenses.reduce((total, e) => {
+        return total + (e.total || 0);
+      }, 0);
+    setBalance(newBalance);
+  }, [expenses, income]);
   return (
     <Box
       display={"flex"}
@@ -51,7 +67,7 @@ const Balance = () => {
               fontSize={44}
               fontWeight={600}
               color={"#FFF"}>
-              {currencyFormatter("789.8")}
+              {currencyFormatter(balance)}
             </Typography>
 
             <Image
