@@ -1,15 +1,13 @@
 "use client";
 
-import Image from "next/image"
+import Image from "next/image";
 import { CustomButton } from ".";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 
 const Hero = () => {
-  const handleScroll = () => {
+  const handleScroll = () => {};
 
-  }
-  
   return (
     <div className="hero">
       <div className="flex-1 pt-36 padding-x">
@@ -20,12 +18,6 @@ const Hero = () => {
         <p className="hero__subtitle pb-10">
           Effortlessly monitor your expenses and manage your finances
         </p>
-
-        {/* <CustomButton
-          title="Get Started"
-          containerStyles="bg-emerald-600 text-white rounded-full mt-10"
-          handleClick={handleScroll}
-        /> */}
 
         <SignedIn>
           <Link href="/dashboard">
@@ -50,6 +42,6 @@ const Hero = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Hero
+export default Hero;

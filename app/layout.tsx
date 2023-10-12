@@ -1,5 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
-import { Poppins } from "@next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import FinanceContextProvider from "../lib/store/finance-context";
 const poppins = Poppins({
