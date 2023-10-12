@@ -13,7 +13,7 @@ interface FinanceContextData {
     createdAt?: Date;
     id?: string;
     description?: string;
-    amount?: string;
+    amount?: number;
   }[];
   addIncomeItem: (newIncome: any) => Promise<void>;
   removeIncomeItem: (incomeId: any) => Promise<void>;
@@ -33,7 +33,7 @@ export default function FinanceContextProvider({
   children,
 }: FinanceContextProviderProps) {
   const [income, setIncome] = useState<
-    { createdAt?: Date; id?: string; description?: string; amount?: string }[]
+    { createdAt?: Date; id?: string; description?: string; amount?: number }[]
   >([]);
 
   const addIncomeItem = async (newIncome: any) => {
