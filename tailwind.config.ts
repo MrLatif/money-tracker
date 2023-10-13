@@ -23,6 +23,8 @@ module.exports = {
           100: "rgba(59,60,152,0.02)",
         },
         grey: "#747A88",
+        "mainBackgroundColor": '#0D1117',
+        "columnBackgroundColor": '#161C22'
       },
       backgroundImage: {
         pattern: "url('/pattern.png')",

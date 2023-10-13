@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import "./globals.css";
 
 export const metadata = {
-  title: "Budget Tracker",
+  title: "Money Tracker",
   description: "Track your expenses",
 };
 

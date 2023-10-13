@@ -3,6 +3,10 @@ import CustomButton from "./CustomButton";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { createTheme } from "@mui/material";
+import TopBar from "./TopBar";
+import SideBar from "./SideBar";
+import KanbanBoard from "./KanbanBoard";
+
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -14,4 +18,6 @@ const theme = createTheme({
     },
   },
 });
-export { Hero, CustomButton, Footer, Navbar, theme };
+export { Hero, CustomButton, Footer, Navbar, theme,TopBar, SideBar, KanbanBoard };
+
+

@@ -7,3 +7,28 @@ export interface CustomButtonProps {
     btnType?: "button" | "submit"
 
 }
+
+export interface DataProps {
+    data: [
+        name: string,
+        items: [
+            priority: number,
+            title: string,
+            chat: number,
+            attachment: number
+        ]
+    ]
+}
+
+export type Id = string | number;
+
+export type Column = {
+    id: Id;
+    title: string;
+}
+
+export type Task = {
+    id: Id;
+    columnId: Id;
+    content: string;
+}
