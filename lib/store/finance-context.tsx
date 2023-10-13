@@ -6,6 +6,7 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  updateDoc,
 } from "firebase/firestore";
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { db } from "../firebase";
@@ -16,13 +17,13 @@ interface IncomeProps {
   description?: string;
   amount?: number;
 }
-interface ExpensesProps {
+export interface ExpensesProps {
   id?: string;
   color?: string;
   items?: [
     {
       amount?: number;
-      createdAt?: Date;
+      createdAt?: any;
       id?: string;
     }
   ];
@@ -34,6 +35,13 @@ interface FinanceContextData {
   expenses: ExpensesProps[];
   addIncomeItem: (newIncome: any) => Promise<void>;
   removeIncomeItem: (incomeId: any) => Promise<void>;
+  addExpenseItem: (expenseCategoryId: any, newExpense: any) => Promise<void>;
+  addCategory: (category: any) => Promise<void>;
+  deleteExpenseItem: (
+    updatedExpense: ExpensesProps,
+    expenseCategoryId: any
+  ) => Promise<void>;
+  deleteExpenseCategory: (expenseCategoryId: any) => Promise<void>;
 }
 
 export const financeContext = createContext<FinanceContextData>({
@@ -41,6 +49,10 @@ export const financeContext = createContext<FinanceContextData>({
   expenses: [],
   addIncomeItem: async () => {},
   removeIncomeItem: async () => {},
+  addExpenseItem: async () => {},
+  addCategory: async () => {},
+  deleteExpenseItem: async () => {},
+  deleteExpenseCategory: async () => {},
 });
 
 interface FinanceContextProviderProps {
@@ -52,6 +64,106 @@ export default function FinanceContextProvider({
 }: FinanceContextProviderProps) {
   const [income, setIncome] = useState<IncomeProps[]>([]);
   const [expenses, setExpenses] = useState<ExpensesProps[]>([]);
+
+  const addCategory = async (category: any) => {
+    try {
+      const collectionRef = collection(db, "expenses");
+
+      const docSnap = await addDoc(collectionRef, {
+        ...category,
+        items: [],
+      });
+
+      setExpenses((prevExpenses) => {
+        return [
+          ...prevExpenses,
+          {
+            id: docSnap.id,
+            items: [],
+            ...category,
+          },
+        ];
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const deleteExpenseCategory = async (expenseCategoryId: any) => {
+    try {
+      const docRef = doc(db, "expenses", expenseCategoryId);
+
+      await deleteDoc(docRef);
+
+      setExpenses((prevExpenses) => {
+        const updatedExpenses = prevExpenses.filter(
+          (ex) => ex.id !== expenseCategoryId
+        );
+        return [...updatedExpenses];
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const addExpenseItem = async (
+    expenseCategoryId: any,
+    newExpense: ExpensesProps
+  ) => {
+    const docRef = doc(db, "expenses", expenseCategoryId);
+
+    try {
+      await updateDoc(docRef, { ...newExpense });
+
+      setExpenses((prevState) => {
+        const updatedExpenses = [...prevState];
+
+        const foundIndex = updatedExpenses.findIndex((expense) => {
+          return expense.id === expenseCategoryId;
+        });
+
+        if (foundIndex !== -1) {
+          updatedExpenses[foundIndex] = {
+            id: expenseCategoryId,
+            ...newExpense,
+          };
+        }
+
+        return updatedExpenses;
+      });
+    } catch (error: any) {
+      throw error;
+    }
+  };
+
+  const deleteExpenseItem = async (
+    updatedExpense: ExpensesProps,
+    expenseCategoryId: any
+  ) => {
+    try {
+      const docRef = doc(db, "expenses", expenseCategoryId);
+      await updateDoc(docRef, { ...updatedExpense });
+
+      setExpenses((prevExpenses) => {
+        const updatedExpenses: ExpensesProps[] = [...prevExpenses];
+
+        const foundIndex = updatedExpenses.findIndex((expense) => {
+          return expense.id === expenseCategoryId;
+        });
+
+        if (foundIndex !== -1) {
+          if (updatedExpense.items) {
+            updatedExpenses[foundIndex].items = [...updatedExpense.items];
+            updatedExpenses[foundIndex].total = updatedExpense.total;
+          }
+        }
+
+        return updatedExpenses;
+      });
+    } catch (error: any) {
+      throw error;
+    }
+  };
 
   const addIncomeItem = async (newIncome: any) => {
     const collectionRef = collection(db, "income");
@@ -92,6 +204,10 @@ export default function FinanceContextProvider({
     expenses,
     addIncomeItem,
     removeIncomeItem,
+    addExpenseItem,
+    addCategory,
+    deleteExpenseItem,
+    deleteExpenseCategory,
   };
   useEffect(() => {
     const getIncomeData = async () => {

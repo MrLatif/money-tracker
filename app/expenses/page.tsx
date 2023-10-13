@@ -7,6 +7,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import AddIncomeModal from "../../components/modals/AddIncomeModal";
 import AddExpensesModal from "../../components/modals/AddExpensesModal";
+import { currencyFormatter } from "../../lib/utils";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -14,7 +15,20 @@ const Expenses = () => {
   const [showAddIncomeModal, setShowAddIncomeModal] = useState<boolean>(false);
   const [showAddExpenseModal, setShowAddExpenseModal] =
     useState<boolean>(false);
-  const { expenses } = useContext(financeContext);
+  const { expenses, income } = useContext(financeContext);
+  const [balance, setBalance] = useState(0);
+
+  useEffect(() => {
+    const newBalance =
+      income.reduce((total, i) => {
+        return total + (i.amount || 0);
+      }, 0) -
+      expenses.reduce((total, e) => {
+        return total + (e.total || 0);
+      }, 0);
+
+    setBalance(newBalance);
+  }, [expenses, income]);
 
   return (
     <>
@@ -28,6 +42,10 @@ const Expenses = () => {
         onClose={setShowAddExpenseModal}
       />
       <main className="container max-w-2xl px-6 mx-auto">
+        <section className="py-3">
+          <small className="text-gray-400 text-md">My Balance</small>
+          <h2 className="text-4xl font-bold">{currencyFormatter(balance)}</h2>
+        </section>
         <section className="flex items-center gap-2 py-3">
           <button
             onClick={() => setShowAddExpenseModal(true)}
@@ -46,14 +64,7 @@ const Expenses = () => {
           <h3 className="text-2xl">My Expenses</h3>
           <div className="flex flex-col gap-4 mt-6">
             {expenses.map((expense) => {
-              return (
-                <ExpenseCategoryItem
-                  key={expense.id}
-                  color={expense.color}
-                  title={expense.title}
-                  total={expense.total}
-                />
-              );
+              return <ExpenseCategoryItem key={expense.id} {...expense} />;
             })}
           </div>
         </section>
