@@ -5,6 +5,13 @@ import Footer from "./Footer";
 import TopBar from "./TopBar";
 import SideBar from "./SideBar";
 import KanbanBoard from "./KanbanBoard";
+import Chat from "./chat/Chat";
+import ChatNavbar from "./chat/ChatNavbar";
+import Chats from "./chat/Chats";
+import Message from "./chat/Message";
+import ChatSearch from "./chat/ChatSearch";
+import ChatInput from "./chat/ChatInput";
+import ChatSidebar from "./chat/ChatSidebar";
 
 export {
     Hero,
@@ -13,5 +20,12 @@ export {
     Navbar,
     TopBar,
     SideBar,
-    KanbanBoard
+    KanbanBoard,
+    Chat,
+    ChatNavbar,
+    Chats,
+    Message,
+    ChatSearch,
+    ChatInput,
+    ChatSidebar
 }

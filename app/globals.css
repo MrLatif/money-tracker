@@ -34,6 +34,49 @@ body,
   font-family: "Manrope", sans-serif;
 }
 
+
+
+/* START: Chat App tyles */
+.chatHome {
+  @apply bg-blue-300 h-screen flex items-center justify-center;
+}
+
+.chatContainer {
+  @apply border border-white rounded-lg w-2/3 h-4/5 flex overflow-hidden;
+ 
+}
+
+.chatSidebar{
+  @apply flex-1 bg-indigo-900;
+
+}
+
+.chat{
+  @apply flex-[2];
+}
+
+.chatNavbar{
+  @apply flex items-center bg-neutral-800 h-[50px] p-[10px] justify-between text-slate-50
+}
+
+.chatNavbarLogo{
+  @apply font-bold
+}
+
+.chatNavbarUser{
+  @apply flex gap-[10px]
+}
+
+.chatCloseButton{
+  @apply bg-indigo-700 text-white text-[10px] border-0 cursor-pointer
+}
+
+/* END: Chat App styles */
+
+
+
+
+
 /* START: General styles */
 .max-width {
   @apply max-w-[1440px] mx-auto;
