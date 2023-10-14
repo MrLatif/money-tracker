@@ -1,7 +1,8 @@
+"use client";
 import Hero from "./Hero";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import { createTheme } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 import TopBar from "./TopBar";
 import SideBar from "./SideBar";
 import KanbanBoard from "./KanbanBoard";

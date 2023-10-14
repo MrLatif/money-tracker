@@ -38,10 +38,11 @@
   }
 }
 
-html,
-body,
-#root {
-  @apply bg-black text-white box-border;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -58,13 +59,6 @@ body,
 
 .task > ::-webkit-scrollbar-thumb {
   @apply bg-sky-500 rounded-xl;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Manrope", sans-serif;
 }
 
 /* START: General styles */
