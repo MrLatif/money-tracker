@@ -1,6 +1,6 @@
 import React from "react";
-import { UserButton, useUser } from "@clerk/nextjs";
-import { Box, Button, Typography } from "@mui/material";
+import { useUser } from "@clerk/nextjs";
+import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { theme } from ".";
 import Image from "next/image";

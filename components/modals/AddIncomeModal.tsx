@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useContext } from "react";
 import Modal from "../Modal";
 import { currencyFormatter } from "../../lib/utils";
 import { useRef } from "react";
+import { useUser } from "@clerk/nextjs/app-beta/client";
 
 import { financeContext } from "../../lib/store/finance-context";
 // Icons
@@ -14,6 +15,8 @@ const AddIncomeModal = ({
   show: boolean;
   onClose: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const { user } = useUser();
+
   const amountRef = useRef<HTMLInputElement | null>(null);
   const descriptionRef = useRef<HTMLInputElement | null>(null);
   const { income, addIncomeItem, removeIncomeItem } =
@@ -25,6 +28,7 @@ const AddIncomeModal = ({
       amount: amountRef.current && +amountRef.current.value,
       description: descriptionRef.current?.value,
       createdAt: new Date(),
+      uid: user?.id,
     };
     try {
       await addIncomeItem(newIncome);

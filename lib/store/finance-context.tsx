@@ -7,9 +7,12 @@ import {
   doc,
   getDocs,
   updateDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import React, { createContext, useState, ReactNode, useEffect } from "react";
 import { db } from "../firebase";
+import { useUser } from "@clerk/nextjs";
 
 interface IncomeProps {
   createdAt?: Date;
@@ -65,11 +68,14 @@ export default function FinanceContextProvider({
   const [income, setIncome] = useState<IncomeProps[]>([]);
   const [expenses, setExpenses] = useState<ExpensesProps[]>([]);
 
+  const { user } = useUser();
+
   const addCategory = async (category: any) => {
     try {
       const collectionRef = collection(db, "expenses");
 
       const docSnap = await addDoc(collectionRef, {
+        uid: user?.id,
         ...category,
         items: [],
       });
@@ -79,6 +85,7 @@ export default function FinanceContextProvider({
           ...prevExpenses,
           {
             id: docSnap.id,
+            uid: user?.id,
             items: [],
             ...category,
           },
@@ -210,9 +217,13 @@ export default function FinanceContextProvider({
     deleteExpenseCategory,
   };
   useEffect(() => {
+    if (!user) return;
+
     const getIncomeData = async () => {
       const collectionRef = collection(db, "income");
-      const docsSnap = await getDocs(collectionRef);
+      const q = query(collectionRef, where("uid", "==", user.id));
+
+      const docsSnap = await getDocs(q);
       const data = docsSnap.docs.map((doc) => {
         return {
           id: doc.id,
@@ -222,9 +233,12 @@ export default function FinanceContextProvider({
       });
       setIncome(data);
     };
+
     const getExpensesData = async () => {
       const collectionRef = collection(db, "expenses");
-      const docsSnap = await getDocs(collectionRef);
+      const q = query(collectionRef, where("uid", "==", user.id));
+
+      const docsSnap = await getDocs(q);
 
       const data = docsSnap.docs.map((doc) => {
         return {
@@ -237,7 +251,7 @@ export default function FinanceContextProvider({
 
     getIncomeData();
     getExpensesData();
-  }, []);
+  }, [user]);
   return (
     <financeContext.Provider value={values}>{children}</financeContext.Provider>
   );
