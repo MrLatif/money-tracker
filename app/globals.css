@@ -4,28 +4,61 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    @apply text-white bg-slate-900 relative;
+  }
+  button {
+    @apply transition-all duration-100 hover:scale-110;
+  }
+  input {
+    @apply px-4 py-2 bg-black rounded-xl;
+  }
+}
+
+@layer utilities {
+  .btn {
+    @apply self-start px-4 py-2 text-sm capitalize rounded-xl;
+  }
+
+  .btn-primary {
+    @apply border bg-slate-700 border-slate-700 text-lime-400;
+  }
+
+  .btn-primary-outline {
+    @apply border border-lime-400 text-lime-400;
+  }
+
+  .btn-danger {
+    @apply text-white bg-red-600 border border-red-600;
+  }
+
+  .input-group {
+    @apply flex flex-col gap-4;
+  }
+}
+
 html,
 body,
 #root {
   @apply bg-black text-white box-border;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   width: 4px;
 }
 
-::-webkit-scrollbar:horizontal{
+::-webkit-scrollbar:horizontal {
   height: 8px;
 }
 
-::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb {
   @apply bg-rose-900 rounded-xl;
 }
 
 .task > ::-webkit-scrollbar-thumb {
   @apply bg-sky-500 rounded-xl;
 }
-
 
 * {
   margin: 0;

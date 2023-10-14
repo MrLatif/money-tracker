@@ -1,5 +1,4 @@
 import Hero from "./Hero";
-import CustomButton from "./CustomButton";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { createTheme } from "@mui/material";
@@ -18,6 +17,4 @@ const theme = createTheme({
     },
   },
 });
-export { Hero, CustomButton, Footer, Navbar, theme,TopBar, SideBar, KanbanBoard };
-
-
+export { Hero, Footer, Navbar, theme, TopBar, SideBar, KanbanBoard };

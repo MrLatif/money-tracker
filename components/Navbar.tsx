@@ -1,11 +1,8 @@
 "use client";
 
-import Link from "next/link"
-import Image from "next/image"
-import { CustomButton } from "."
-import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs"
-import { Button } from "@mui/material";
-
+import Link from "next/link";
+import Image from "next/image";
+import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 
 const Navbar = () => {
   return (
@@ -37,6 +34,6 @@ const Navbar = () => {
       </nav>
     </header>
   );
-}
+};
 
-export default Navbar
+export default Navbar;
