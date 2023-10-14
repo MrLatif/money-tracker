@@ -36,6 +36,7 @@ export interface ExpensesProps {
 interface FinanceContextData {
   income: IncomeProps[];
   expenses: ExpensesProps[];
+  actions: number;
   addIncomeItem: (newIncome: any) => Promise<void>;
   removeIncomeItem: (incomeId: any) => Promise<void>;
   addExpenseItem: (expenseCategoryId: any, newExpense: any) => Promise<void>;
@@ -50,6 +51,7 @@ interface FinanceContextData {
 export const financeContext = createContext<FinanceContextData>({
   income: [],
   expenses: [],
+  actions: 0,
   addIncomeItem: async () => {},
   removeIncomeItem: async () => {},
   addExpenseItem: async () => {},
@@ -67,6 +69,7 @@ export default function FinanceContextProvider({
 }: FinanceContextProviderProps) {
   const [income, setIncome] = useState<IncomeProps[]>([]);
   const [expenses, setExpenses] = useState<ExpensesProps[]>([]);
+  const [actions, setActions] = useState<number>(0);
 
   const { user } = useUser();
 
@@ -91,6 +94,7 @@ export default function FinanceContextProvider({
           },
         ];
       });
+      setActions((prevAction) => prevAction + 1);
     } catch (error) {
       throw error;
     }
@@ -108,6 +112,7 @@ export default function FinanceContextProvider({
         );
         return [...updatedExpenses];
       });
+      setActions((prevAction) => prevAction + 1);
     } catch (error) {
       throw error;
     }
@@ -138,6 +143,7 @@ export default function FinanceContextProvider({
 
         return updatedExpenses;
       });
+      setActions((prevAction) => prevAction + 1);
     } catch (error: any) {
       throw error;
     }
@@ -167,6 +173,7 @@ export default function FinanceContextProvider({
 
         return updatedExpenses;
       });
+      setActions((prevAction) => prevAction + 1);
     } catch (error: any) {
       throw error;
     }
@@ -187,6 +194,7 @@ export default function FinanceContextProvider({
           },
         ];
       });
+      setActions((prevAction) => prevAction + 1);
     } catch (error: any) {
       console.log(error.message);
       throw error;
@@ -200,6 +208,7 @@ export default function FinanceContextProvider({
       setIncome((prevState) => {
         return prevState.filter((i) => i.id !== incomeId);
       });
+      setActions((prevAction) => prevAction + 1);
     } catch (error: any) {
       console.log(error.message);
       throw error;
@@ -209,6 +218,7 @@ export default function FinanceContextProvider({
   const values: FinanceContextData = {
     income,
     expenses,
+    actions,
     addIncomeItem,
     removeIncomeItem,
     addExpenseItem,

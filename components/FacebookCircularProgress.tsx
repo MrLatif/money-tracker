@@ -23,7 +23,6 @@ export default function FacebookCircularProgress(props: CircularProgressProps) {
       />
       <CircularProgress
         variant="determinate"
-        disableShrink
         value={75}
         sx={{
           color: "#FE1114",

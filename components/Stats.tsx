@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import { theme } from ".";
 import FacebookCircularProgress from "./FacebookCircularProgress";
 import TasksDone from "./TasksDone";

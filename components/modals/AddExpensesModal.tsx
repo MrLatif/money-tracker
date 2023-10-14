@@ -8,6 +8,7 @@ import React, {
 import Modal from "../Modal";
 import { financeContext } from "../../lib/store/finance-context";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify";
 
 interface ExpenseItem {
   amount?: number;
@@ -44,8 +45,9 @@ const AddExpensesModal = ({
     try {
       await addCategory({ title, color, total: 0 });
       setShowAddExpense(false);
+      toast.success("Category created!");
     } catch (error: any) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -74,8 +76,9 @@ const AddExpensesModal = ({
         setExpenseAmount("");
         setSelectedCategory("");
         onClose(false);
-      } catch (error) {
-        console.log(error);
+        toast.success("Expense added successfully!");
+      } catch (error: any) {
+        toast.error(error.message);
       }
     }
   };

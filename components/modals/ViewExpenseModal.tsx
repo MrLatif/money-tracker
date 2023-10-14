@@ -3,6 +3,7 @@ import Modal from "../Modal";
 import { currencyFormatter } from "../../lib/utils";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { financeContext } from "../../lib/store/finance-context";
+import { toast } from "react-toastify";
 interface ExpensesProps {
   id?: string;
   color?: string;
@@ -42,17 +43,19 @@ const ViewExpenseModal = ({
           total: expense.total - item.amount,
         };
         await deleteExpenseItem(updatedExpense, expense.id);
+        toast.success("Expense item removed successfully!");
       }
     } catch (error: any) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
 
   const deleteExpenseHandler = async () => {
     try {
       await deleteExpenseCategory(expense.id);
+      toast.success("Expense category deleted successfully!");
     } catch (error: any) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
 

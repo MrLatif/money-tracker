@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { CustomButton } from ".";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 

@@ -1,5 +1,4 @@
 import Hero from "./Hero";
-import CustomButton from "./CustomButton";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import { createTheme } from "@mui/material/styles";
@@ -14,4 +13,4 @@ const theme = createTheme({
     },
   },
 });
-export { Hero, CustomButton, Footer, Navbar, theme };
+export { Hero, Footer, Navbar, theme };

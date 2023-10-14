@@ -7,6 +7,7 @@ import { useUser } from "@clerk/nextjs/app-beta/client";
 import { financeContext } from "../../lib/store/finance-context";
 // Icons
 import { FaRegTrashAlt } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const AddIncomeModal = ({
   show,
@@ -35,23 +36,25 @@ const AddIncomeModal = ({
       if (descriptionRef.current && amountRef.current) {
         descriptionRef.current.value = "";
         amountRef.current.value = "";
+        toast.success("Income added! successfully");
       }
     } catch (error: any) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
 
   const deleteIncomeEntryHandler = async (incomeId: string | undefined) => {
     try {
       removeIncomeItem(incomeId);
+      toast.success("Income deleted successfully!");
     } catch (error: any) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
 
   return (
     <Modal show={show} onClose={onClose}>
-      <form onSubmit={addIncomeHandler} className="flex flex-col gap-4">
+      <form onSubmit={addIncomeHandler} className="flex flex-col gap-4 ">
         <div className="input-group">
           <label htmlFor="amount">Income Amount</label>
           <input

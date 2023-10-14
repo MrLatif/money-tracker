@@ -1,9 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useContext } from "react";
 import { theme } from ".";
 import Image from "next/image";
+import { financeContext } from "../lib/store/finance-context";
 
 const TasksDone = () => {
+  const { actions } = useContext(financeContext);
+
   return (
     <Box
       display={"flex"}
@@ -32,7 +35,7 @@ const TasksDone = () => {
           fontFamily={"Poppins"}
           fontSize={48}
           fontWeight={700}>
-          19
+          {actions}
         </Typography>
         <Typography
           color={"#FFF"}
