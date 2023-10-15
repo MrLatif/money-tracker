@@ -6,18 +6,27 @@ import { createTheme } from "@mui/material";
 import TopBar from "./TopBar";
 import SideBar from "./SideBar";
 import KanbanBoard from "./KanbanBoard";
+import Chat from "./chat/Chat";
+import ChatNavbar from "./chat/ChatNavbar";
+import Chats from "./chat/Chats";
+import Message from "./chat/Message";
+import ChatSearch from "./chat/ChatSearch";
+import ChatInput from "./chat/ChatInput";
+import ChatSidebar from "./chat/ChatSidebar";
 
-const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 900,
-      lg: 1200,
-      xl: 1636,
-    },
-  },
-});
-export { Hero, CustomButton, Footer, Navbar, theme,TopBar, SideBar, KanbanBoard };
-
-
+export {
+    Hero,
+    CustomButton,
+    Footer,
+    Navbar,
+    TopBar,
+    SideBar,
+    KanbanBoard,
+    Chat,
+    ChatNavbar,
+    Chats,
+    Message,
+    ChatSearch,
+    ChatInput,
+    ChatSidebar
+}
