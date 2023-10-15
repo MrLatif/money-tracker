@@ -24,8 +24,10 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en" className={poppins.className}>
-        <head />
+      <html
+        lang="en"
+        className={poppins.className}
+        suppressHydrationWarning={true}>
         <body>
           <FinanceContextProvider>
             <ToastContainer />

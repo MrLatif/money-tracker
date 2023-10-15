@@ -8,6 +8,7 @@ import { Doughnut } from "react-chartjs-2";
 import AddIncomeModal from "../components/modals/AddIncomeModal";
 import AddExpensesModal from "../components/modals/AddExpensesModal";
 import { currencyFormatter } from "../lib/utils";
+import CurrencyRow from "./CurrencyRow";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

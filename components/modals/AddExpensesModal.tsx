@@ -4,12 +4,13 @@ import React, {
   useState,
   useContext,
   useRef,
+  useEffect,
 } from "react";
 import Modal from "../Modal";
 import { financeContext } from "../../lib/store/finance-context";
 import { v4 as uuidv4 } from "uuid";
 import { toast } from "react-toastify";
-
+import CurrencyRow from "../CurrencyRow";
 interface ExpenseItem {
   amount?: number;
   createdAt?: Date;
@@ -23,6 +24,10 @@ interface ExpensesProps {
   title?: string;
   total?: number;
 }
+
+const BASE_URL =
+  "http://api.exchangeratesapi.io/v1/latest?access_key=a857e862c244fb801734e8f2778567f0";
+
 const AddExpensesModal = ({
   show,
   onClose,
@@ -83,6 +88,11 @@ const AddExpensesModal = ({
     }
   };
 
+  useEffect(() => {
+    fetch(BASE_URL)
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
   return (
     <Modal show={show} onClose={onClose}>
       <div className="flex flex-col gap-4 ">
@@ -97,6 +107,7 @@ const AddExpensesModal = ({
             setExpenseAmount(e.target.value);
           }}
         />
+        <CurrencyRow />
       </div>
 
       {/* Expense Categories */}
