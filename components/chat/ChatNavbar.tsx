@@ -8,14 +8,13 @@ const ChatNavbar = () => {
     <div className="chatNavbar">
       <Image
         className="rounded-[50%] object-cover"
-        src={user?.imageUrl || "face.svg"}
+        src={user?.imageUrl || "/"}
         alt="Profile Picture"
         width={24}
         height={24}
       />
       <div className="chatNavbarUser">
         <span>{user?.firstName}</span>
-        
       </div>
       <button className="chatCloseButton">Logout</button>
     </div>
