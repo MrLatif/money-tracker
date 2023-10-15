@@ -1,15 +1,13 @@
 "use client";
 
-import Image from "next/image"
+import Image from "next/image";
 import { CustomButton } from ".";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 
 const Hero = () => {
-  const handleScroll = () => {
+  const handleScroll = () => {};
 
-  }
-  
   return (
     <div className="hero">
       <div className="flex-1 pt-36 padding-x">
@@ -50,6 +48,6 @@ const Hero = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Hero
+export default Hero;
