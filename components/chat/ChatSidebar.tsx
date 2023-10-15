@@ -1,10 +1,14 @@
-import { ChatNavbar, ChatSearch } from "..";
+import { ChatNavbar, ChatSearch, Chats } from "..";
 
 const ChatSidebar = () => {
   return (
     <div className="chatSidebar">
       <ChatNavbar />
       <ChatSearch />
+      <Chats />
+      <Chats />
+      <Chats />
+      <Chats />
     </div>
   );
 };

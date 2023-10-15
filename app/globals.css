@@ -7,7 +7,7 @@
 html,
 body,
 #root {
-  @apply bg-black text-white box-border;
+  @apply box-border;
 }
 
 ::-webkit-scrollbar{
@@ -38,11 +38,11 @@ body,
 
 /* START: Chat App tyles */
 .chatHome {
-  @apply bg-neutral-400 h-screen flex items-center justify-center;
+  @apply bg-neutral-400 h-[100vh] flex items-center justify-center;
 }
 
 .chatContainer {
-  @apply border border-white rounded-xl w-2/3 h-4/5 flex overflow-hidden;
+  @apply border border-white rounded-xl w-[65%] h-[80%] flex overflow-hidden;
  
 }
 
