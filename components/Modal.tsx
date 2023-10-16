@@ -21,7 +21,7 @@ const Modal = ({
           className="w-10 h-10 mb-4 font-bold rounded-full ">
           X
         </button>
-        {children}
+        <div style={{ minHeight: 650, height: "auto" }}>{children}</div>
       </div>
     </div>
   );

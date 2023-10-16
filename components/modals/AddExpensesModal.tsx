@@ -133,7 +133,7 @@ const AddExpensesModal = ({
 
   return (
     <Modal show={show} onClose={onClose}>
-      <div className="flex flex-col gap-4 ">
+      <div className="flex flex-col gap-4">
         <label>Enter an amount..</label>
         <input
           type="number"
