@@ -18,7 +18,8 @@ function CustomTabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}>
+      {...other}
+    >
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Typography component={"div"}>{children}</Typography>
@@ -58,7 +59,8 @@ const Dashboard = () => {
       className="contain-two-boxes"
       marginTop={0}
       display={"flex"}
-      justifyContent={"center"}>
+      justifyContent={"center"}
+    >
       <Box width={"70%"}>
         {/* <WelcomeCard /> */}
         <Box
@@ -66,12 +68,14 @@ const Dashboard = () => {
           flexDirection={"column"}
           alignItems={"flex-start"}
           gap={4}
-          marginTop={0}>
+          marginTop={0}
+        >
           <Box
             display={"flex"}
             flexDirection={"column"}
             alignItems={"flex-start"}
-            gap={3}>
+            gap={3}
+          >
             {/* <Typography color={"#FFF"} fontSize={24} fontWeight={600}>
               Dashboard
             </Typography> */}
@@ -82,7 +86,8 @@ const Dashboard = () => {
               justifyContent={"space-between"}
               width={1000}
               gap={"70px"}
-              borderRadius={"8px"}>
+              borderRadius={"8px"}
+            >
               <Tabs
                 value={value}
                 onChange={handleChange}
@@ -91,7 +96,8 @@ const Dashboard = () => {
                   style: {
                     backgroundColor: "#97F704",
                   },
-                }}>
+                }}
+              >
                 <Tab
                   label="Stats"
                   {...a11yProps(0)}
