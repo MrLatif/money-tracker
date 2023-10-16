@@ -13,4 +13,4 @@ module.exports = {
     ],
   },
 };
-module.exports = nextConfig;
+// module.exports = nextConfig;
