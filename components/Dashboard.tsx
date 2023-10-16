@@ -43,16 +43,6 @@ const Dashboard = () => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowWelcomeCard(false);
-    }, 3000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
   return (
     <Box
       className="contain-two-boxes"
