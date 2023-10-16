@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  reactStrictMode: false,
+};
 
 module.exports = {
   images: {
@@ -10,4 +12,5 @@ module.exports = {
       },
     ],
   },
-}
+};
+module.exports = nextConfig;

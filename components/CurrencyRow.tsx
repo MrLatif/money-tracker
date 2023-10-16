@@ -1,11 +1,14 @@
 import React from "react";
 
-const CurrencyRow = () => {
+const CurrencyRow = (props: any) => {
+  const { currencyOptions, selectedCurrency, onChangeCurrency } = props;
+
   return (
     <div>
-      <label htmlFor="Currency">Currency: </label>
+      <label>Currency: </label>
       <select
-        name="Currency"
+        value={selectedCurrency}
+        onChange={onChangeCurrency}
         style={{
           backgroundColor: "black",
           borderRadius: "20px",
@@ -13,7 +16,13 @@ const CurrencyRow = () => {
           height: 25,
           paddingLeft: 8,
         }}>
-        <option value="USD">USD</option>
+        {currencyOptions
+          ?.filter((option: string) => option !== "ISL")
+          .map((option: string) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
       </select>
     </div>
   );

@@ -53,12 +53,12 @@ const Balance = () => {
           },
         }}>
         <Box
-          className="$789 balance"
+          className="€789 balance"
           display={"flex"}
           flexDirection={"column"}
           alignItems={"flex-start"}>
           <Box
-            className="$789"
+            className="€789"
             display={"flex"}
             alignItems={"center"}
             gap={1.75}>
