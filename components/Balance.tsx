@@ -6,9 +6,35 @@ import Image from "next/image";
 import { useState, useContext, useEffect } from "react";
 import { financeContext } from "../lib/store/finance-context";
 
+function formatDate(date: Date) {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+
+  return `${month} ${day} ${year}`;
+}
+
 const Balance = () => {
+  const currentDate = new Date();
+  const formattedDate = formatDate(currentDate);
+
   const [balance, setBalance] = useState(0);
-  const { expenses, income } = useContext(financeContext);
+  const { expenses, income, isPositive } = useContext(financeContext);
 
   useEffect(() => {
     const newBalance =
@@ -71,10 +97,10 @@ const Balance = () => {
             </Typography>
 
             <Image
-              src={"./arrow-up.svg"}
+              src={isPositive ? "./greenArrowUp.svg" : "./redArrowDown.svg"}
               alt={"arrow up"}
               style={{
-                transform: "rotate(180deg)",
+                transform: isPositive ? "" : "rotate(180deg)",
               }}
               width={26}
               height={26}
@@ -92,17 +118,16 @@ const Balance = () => {
           <Typography
             fontFamily={"Poppins"}
             fontSize={16}
-            fontWeight={500}
+            fontWeight={600}
+            marginRight={-4}
             color={"#99FC03"}>
-            22 May 2023
+            {formattedDate}
           </Typography>
           <Button
             sx={{
               minWidth: 26,
               minWeight: 26,
-            }}>
-            <Image src={"./more.svg"} alt={"more"} width={24} height={24} />
-          </Button>
+            }}></Button>
         </Box>
       </Box>
     </Box>

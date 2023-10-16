@@ -37,6 +37,7 @@ interface FinanceContextData {
   income: IncomeProps[];
   expenses: ExpensesProps[];
   actions: number;
+  isPositive: boolean | null;
   addIncomeItem: (newIncome: any) => Promise<void>;
   removeIncomeItem: (incomeId: any) => Promise<void>;
   addExpenseItem: (expenseCategoryId: any, newExpense: any) => Promise<void>;
@@ -52,6 +53,7 @@ export const financeContext = createContext<FinanceContextData>({
   income: [],
   expenses: [],
   actions: 0,
+  isPositive: null,
   addIncomeItem: async () => {},
   removeIncomeItem: async () => {},
   addExpenseItem: async () => {},
@@ -70,6 +72,7 @@ export default function FinanceContextProvider({
   const [income, setIncome] = useState<IncomeProps[]>([]);
   const [expenses, setExpenses] = useState<ExpensesProps[]>([]);
   const [actions, setActions] = useState<number>(0);
+  const [isPositive, setIsPositive] = useState<boolean | null>(null);
 
   const { user } = useUser();
 
@@ -112,6 +115,7 @@ export default function FinanceContextProvider({
         );
         return [...updatedExpenses];
       });
+      setIsPositive(true);
       setActions((prevAction) => prevAction + 1);
     } catch (error) {
       throw error;
@@ -143,6 +147,7 @@ export default function FinanceContextProvider({
 
         return updatedExpenses;
       });
+      setIsPositive(false);
       setActions((prevAction) => prevAction + 1);
     } catch (error: any) {
       throw error;
@@ -173,6 +178,7 @@ export default function FinanceContextProvider({
 
         return updatedExpenses;
       });
+      setIsPositive(true);
       setActions((prevAction) => prevAction + 1);
     } catch (error: any) {
       throw error;
@@ -194,6 +200,7 @@ export default function FinanceContextProvider({
           },
         ];
       });
+      setIsPositive(true);
       setActions((prevAction) => prevAction + 1);
     } catch (error: any) {
       console.log(error.message);
@@ -208,6 +215,7 @@ export default function FinanceContextProvider({
       setIncome((prevState) => {
         return prevState.filter((i) => i.id !== incomeId);
       });
+      setIsPositive(false);
       setActions((prevAction) => prevAction + 1);
     } catch (error: any) {
       console.log(error.message);
@@ -219,6 +227,7 @@ export default function FinanceContextProvider({
     income,
     expenses,
     actions,
+    isPositive,
     addIncomeItem,
     removeIncomeItem,
     addExpenseItem,
