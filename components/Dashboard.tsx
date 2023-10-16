@@ -2,6 +2,10 @@ import { Box, Tab, Tabs, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Data from "./Data";
 import Expenses from "./Expenses";
+import { useUser } from "@clerk/nextjs";
+import "firebase/firestore";
+import { collection } from "firebase/firestore";
+import { db } from "../lib/firebase";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -43,6 +47,12 @@ const Dashboard = () => {
     setValue(newValue);
   };
 
+  const { user } = useUser();
+
+  if(user){
+    const collectionRef = collection(db, 'users');
+  }
+  
   return (
     <Box
       className="contain-two-boxes"
