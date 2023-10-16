@@ -1,7 +1,25 @@
-import { Box, Button, Typography, createTheme } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import { theme } from ".";
+import { currencyFormatter } from "../lib/utils";
+import Image from "next/image";
+import { useState, useContext, useEffect } from "react";
+import { financeContext } from "../lib/store/finance-context";
+
 const Balance = () => {
+  const [balance, setBalance] = useState(0);
+  const { expenses, income } = useContext(financeContext);
+
+  useEffect(() => {
+    const newBalance =
+      income.reduce((total, i) => {
+        return total + (i.amount || 0);
+      }, 0) -
+      expenses.reduce((total, e) => {
+        return total + (e.total || 0);
+      }, 0);
+    setBalance(newBalance);
+  }, [expenses, income]);
   return (
     <Box
       display={"flex"}
@@ -49,14 +67,17 @@ const Balance = () => {
               fontSize={44}
               fontWeight={600}
               color={"#FFF"}>
-              $789.80
+              {currencyFormatter(balance)}
             </Typography>
 
-            <img
-              src="./arrow-up.svg"
+            <Image
+              src={"./arrow-up.svg"}
+              alt={"arrow up"}
               style={{
                 transform: "rotate(180deg)",
               }}
+              width={26}
+              height={26}
             />
           </Box>
           <Typography
@@ -80,7 +101,7 @@ const Balance = () => {
               minWidth: 26,
               minWeight: 26,
             }}>
-            <img src="./more.svg" />
+            <Image src={"./more.svg"} alt={"more"} width={24} height={24} />
           </Button>
         </Box>
       </Box>

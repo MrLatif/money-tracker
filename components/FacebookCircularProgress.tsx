@@ -1,5 +1,4 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import CircularProgress, {
   circularProgressClasses,
@@ -24,7 +23,6 @@ export default function FacebookCircularProgress(props: CircularProgressProps) {
       />
       <CircularProgress
         variant="determinate"
-        disableShrink
         value={75}
         sx={{
           color: "#FE1114",
@@ -37,7 +35,7 @@ export default function FacebookCircularProgress(props: CircularProgressProps) {
           },
         }}
         size={140}
-        thickness={4}
+        thickness={4.3}
         {...props}
       />
       <Box

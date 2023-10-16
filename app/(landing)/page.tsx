@@ -6,9 +6,9 @@ import { Footer, Hero, Navbar } from "../../components";
 export default function Home() {
   return (
     <main className="overflow-hidden">
-      <Navbar/>
+      <Navbar />
       <Hero />
-      <Footer/>
+      <Footer />
     </main>
   );
 }

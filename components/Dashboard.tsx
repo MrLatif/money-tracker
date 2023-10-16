@@ -1,8 +1,7 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
-import React from "react";
-import WelcomeCard from "./WelcomeCard";
-import Stats from "./Data";
+import React, { useEffect, useState } from "react";
 import Data from "./Data";
+import Expenses from "./Expenses";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -37,33 +36,45 @@ function a11yProps(index: number) {
 }
 
 const Dashboard = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [showWelcomeCard, setShowWelcomeCard] = useState(true);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowWelcomeCard(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
     <Box
       className="contain-two-boxes"
-      marginTop={5}
+      marginTop={0}
       display={"flex"}
       justifyContent={"center"}>
       <Box width={"70%"}>
-        <WelcomeCard />
+        {/* <WelcomeCard /> */}
         <Box
           display={"flex"}
           flexDirection={"column"}
           alignItems={"flex-start"}
           gap={4}
-          marginTop={5}>
+          marginTop={0}>
           <Box
             display={"flex"}
             flexDirection={"column"}
             alignItems={"flex-start"}
             gap={3}>
-            <Typography color={"#FFF"} fontSize={24} fontWeight={600}>
+            {/* <Typography color={"#FFF"} fontSize={24} fontWeight={600}>
               Dashboard
-            </Typography>
+            </Typography> */}
             <Box
               display={"flex"}
               paddingLeft={0}
@@ -125,7 +136,7 @@ const Dashboard = () => {
               <Data />
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
-              Item Two
+              <Expenses />
             </CustomTabPanel>
           </Box>
         </Box>
