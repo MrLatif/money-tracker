@@ -25,8 +25,8 @@ interface ExpensesProps {
   total?: number;
 }
 
-const BASE_URL =
-  "http://api.exchangeratesapi.io/v1/latest?access_key=a857e862c244fb801734e8f2778567f0";
+const URL =
+  "http://api.exchangeratesapi.io/v1/latest?access_key=675dd6ce3167b42310c718fc3914f62a";
 
 const AddExpensesModal = ({
   show,
@@ -35,6 +35,9 @@ const AddExpensesModal = ({
   show: boolean;
   onClose: Dispatch<SetStateAction<boolean>>;
 }) => {
+  const [currencyOptions, setCurrencyOptions] = useState<string[]>([]);
+  const [fromCurrency, setFromCurrency] = useState<string>("EUR");
+  const [exchangeRate, setExchangeRate] = useState<number>(1);
   const [expenseAmount, setExpenseAmount] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>();
   const [showAddExpense, setShowAddExpense] = useState<boolean>(false);
@@ -42,6 +45,12 @@ const AddExpensesModal = ({
   const titleRef = useRef<any>();
   const colorRef = useRef<any>();
   const { expenses, addExpenseItem, addCategory } = useContext(financeContext);
+
+  let initAmount, amount: number;
+
+  const handleChangeCurrency = (e: any) => {
+    setFromCurrency(e.target.value);
+  };
 
   const addCategoryHandler = async () => {
     const title = titleRef.current.value;
@@ -57,6 +66,11 @@ const AddExpensesModal = ({
   };
 
   const addExpenseItemHandler = async () => {
+    if (expenseAmount) {
+      initAmount = +expenseAmount;
+      amount = +(initAmount * exchangeRate).toFixed(2);
+    }
+
     const expense = expenses.find((e) => {
       return e.id === selectedCategory;
     });
@@ -65,11 +79,11 @@ const AddExpensesModal = ({
       const newExpense: ExpensesProps = {
         color: expense.color,
         title: expense.title,
-        total: (expense.total || 0) + +expenseAmount,
+        total: (expense.total || 0) + +amount,
         items: [
           ...(expense.items || []),
           {
-            amount: +expenseAmount,
+            amount: +amount,
             createdAt: new Date(),
             id: uuidv4(),
           },
@@ -89,10 +103,34 @@ const AddExpensesModal = ({
   };
 
   useEffect(() => {
-    fetch(BASE_URL)
+    if (fromCurrency) {
+      fetch(`${URL}&base=EUR&symbols=${fromCurrency}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data && data.base && data.rates) {
+            setExchangeRate(1 / data.rates[fromCurrency]);
+          } else {
+            console.error("Invalid data received from the API");
+          }
+        });
+    }
+  }, [fromCurrency]);
+
+  useEffect(() => {
+    fetch(URL)
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        if (data && data.base && data.rates) {
+          setCurrencyOptions([...Object.keys(data.rates)]);
+        } else {
+          console.error("Invalid data received from the API");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }, []);
+
   return (
     <Modal show={show} onClose={onClose}>
       <div className="flex flex-col gap-4 ">
@@ -107,7 +145,11 @@ const AddExpensesModal = ({
             setExpenseAmount(e.target.value);
           }}
         />
-        <CurrencyRow />
+        <CurrencyRow
+          currencyOptions={currencyOptions}
+          selectedCurrency={fromCurrency}
+          onChangeCurrency={handleChangeCurrency}
+        />
       </div>
 
       {/* Expense Categories */}

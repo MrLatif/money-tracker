@@ -18,15 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
-      <body
-        style={{
-          background: "rgba(32, 32, 33)",
-          border: "1px solid rgba(79, 79, 79, 0.00)",
-          backdropFilter: "blur(50px)",
-        }}>
-        {children}
-      </body>
-    </html>
+    <div
+      suppressHydrationWarning={true}
+      style={{
+        background: "rgba(32, 32, 33)",
+        border: "1px solid rgba(79, 79, 79, 0.00)",
+        backdropFilter: "blur(50px)",
+      }}>
+      {children}
+    </div>
   );
 }

@@ -26,3 +26,11 @@ export type Task = {
   columnId: Id;
   content: string;
 };
+
+
+export type UserType = {
+  userId: string,
+  userFirstName: string | null,
+  userEmail: string | null,
+  userImageUrl: string,
+};
