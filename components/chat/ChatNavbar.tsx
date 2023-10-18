@@ -16,7 +16,9 @@ const ChatNavbar = () => {
       <div className="chatNavbarUser">
         <span>{user?.firstName}</span>
       </div>
-      <button className="chatCloseButton">Logout</button>
+      <button onClick={() => close()} className="chatCloseButton">
+        Close
+      </button>
     </div>
   );
 };
