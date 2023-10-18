@@ -61,10 +61,14 @@ const Dashboard = ({ userId, userFirstName, userEmail, userImageUrl }: UserType)
             console.log("User exists");
             try {
                 await setDoc(doc(db, "users", userId), {
+                    uid: userId,
                     displayName: userFirstName,
                     email: userEmail,
                     photoUrl: userImageUrl,
                 });
+                
+                await setDoc(doc(db, "userChats", userId), {});
+
                 console.log("User data added to Firestore successfully.");
             } catch (error) {
                 console.error("Error adding user data to Firestore:", error);
