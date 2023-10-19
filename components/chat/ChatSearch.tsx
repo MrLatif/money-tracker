@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { setDoc, collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import { UserType } from "../../types";
 import Image from "next/image";
+import { useUser } from "@clerk/nextjs";
 
 const ChatSearch = () => {
   const [username, setUsername] = useState(" ");
   const [user, setUser] = useState<UserType | null>(null);
   const [err, setErr] = useState(false);
 
+  const currentUser = useUser();
+
   const handleSearch = async () => {
-    setUser(null);
+    
     const q = query(
       collection(db, "users"),
       where("displayName", "==", username)
@@ -18,20 +21,54 @@ const ChatSearch = () => {
 
     try { 
       const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
+      querySnapshot.forEach((userDoc) => {
           // console.log(doc.id, " => ", doc.data());
-          setUser(doc.data() as UserType);
-          console.log(doc.data().photoUrl)
+          setUser(userDoc.data() as UserType);
 
       });
     } catch (err) {
       setErr(true);
     }
+
+    //if(!user) setUser(null);
   };
 
   const handleKey = (e: any) => {
     e.code === "Enter" && handleSearch();
   };
+  
+  const handleSelect = async () => {
+    //checking whether the chat already exists, if not create
+    if(currentUser.user && user){
+      const combinedId = 
+        currentUser.user.id > user.uid 
+        ? currentUser.user.id + user.uid 
+        : user.uid + currentUser.user.id; 
+
+      try{
+
+        const docRef = doc(db, "chats", combinedId);
+        const docSnap = await getDoc(docRef);
+
+        if (!docSnap.exists()) {
+          const chatRef = collection(db, "chats");
+          await setDoc(doc(chatRef, combinedId), { messages:[] });
+
+          //create user chats
+          userChats: {
+            
+          }
+        }
+
+      }catch(err){
+
+      }
+      
+    }
+    
+
+    //create user chats
+  }
 
   return (
       <div className="chatSearch">
@@ -46,7 +83,7 @@ const ChatSearch = () => {
           </div>
           {!user && <span>User not found</span>}
           {user && (
-              <div className="userChat">
+              <div className="userChat" onClick={handleSelect}>
                   <Image
                       className="rounded-[50%] text-white object-cover"
                       src={user.photoUrl}
@@ -58,7 +95,6 @@ const ChatSearch = () => {
                       <span className="text-[18px] font-medium">
                           {user.displayName}
                       </span>
-                      <p className="text-[14px] text-stone-300">Hello</p>
                   </div>
               </div>
           )}
