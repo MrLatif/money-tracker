@@ -1,22 +1,26 @@
 import { useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../lib/firebase";
+import { UserType } from "../../types";
 
 const ChatSearch = () => {
   const [username, setUsername] = useState(" ");
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [err, setErr] = useState(false);
 
   const handleSearch = async () => {
+    
     const q = query(
       collection(db, "users"),
       where("displayName", "==", username)
     );
 
-    try {
+    try { 
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        setUser(doc.data());
+          console.log(doc.id, " => ", doc.data());
+          setUser(doc.data() as UserType);
+
       });
     } catch (err) {
       setErr(true);
