@@ -2,14 +2,14 @@ import { Column, Id, Task } from "../types";
 import TrashIcon from "../icons/TrashIcon";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { PlusCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
 import TaskCard from "./TaskCard";
-
+import { doc } from "firebase/firestore";
+import { db } from "../lib/firebase";
 interface Props {
   column: Column;
   tasks: Task[];
-  deleteColumn: (id: Id) => void;
   updateColumn: (id: Id, title: string) => void;
   createTask: (columnId: Id) => void;
   deleteTask: (id: Id) => void;
@@ -17,15 +17,8 @@ interface Props {
 }
 
 function ColumnContainer(props: Props) {
-  const {
-    column,
-    deleteColumn,
-    updateColumn,
-    createTask,
-    tasks,
-    deleteTask,
-    updateTask,
-  } = props;
+  const { column, updateColumn, createTask, tasks, deleteTask, updateTask } =
+    props;
 
   const [editMode, setEditMode] = useState(false);
 
@@ -70,8 +63,7 @@ function ColumnContainer(props: Props) {
       rounded-md
       flex
       flex-col
-      "
-      ></div>
+      "></div>
     );
   }
 
@@ -87,8 +79,7 @@ function ColumnContainer(props: Props) {
       rounded-md
       flex
       flex-col
-      "
-    >
+      ">
       {/* Column title */}
       <div
         {...attributes}
@@ -110,8 +101,7 @@ function ColumnContainer(props: Props) {
         flex
         items-center
         justify-between
-      "
-      >
+      ">
         <div className="flex gap-2">
           <div
             className="
@@ -123,8 +113,7 @@ function ColumnContainer(props: Props) {
               py-1
               text-sm
               rounded-full
-            "
-          >
+            ">
             0
           </div>
           {!editMode && column.title}
@@ -144,21 +133,6 @@ function ColumnContainer(props: Props) {
             />
           )}
         </div>
-        <button
-          onClick={() => {
-            deleteColumn(column.id);
-          }}
-          className="
-            stroke-gray-500
-            hover:stroke-white
-            hover:bg-columnBackgroundColor
-            rounded
-            px-1
-            py-2
-          "
-        >
-          <TrashIcon />
-        </button>
       </div>
 
       {/* Column task container */}
@@ -180,8 +154,7 @@ function ColumnContainer(props: Props) {
         onClick={() => {
           createTask(column.id);
         }}
-        className="flex gap-2 items-center border-columnBackgroundColor boder-2 rounded-md p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-rose-500 active:bg-black"
-      >
+        className="flex gap-2 items-center border-columnBackgroundColor boder-2 rounded-md p-4 border-x-columnBackgroundColor hover:bg-mainBackgroundColor hover:text-rose-500 active:bg-black">
         <PlusCircleIcon className="w-6 h-6" />
         Add task
       </button>
