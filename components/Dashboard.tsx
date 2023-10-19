@@ -43,10 +43,10 @@ function a11yProps(index: number) {
 }
 
 const Dashboard = ({
-  userId,
-  userFirstName,
-  userEmail,
-  userImageUrl,
+  uid,
+  displayName,
+  email,
+  photoUrl,
 }: UserType) => {
   const [value, setValue] = useState(0);
   const [showWelcomeCard, setShowWelcomeCard] = useState(true);
@@ -62,23 +62,23 @@ const Dashboard = ({
 
   const StoreUserDataInFirestore = async () => {
     console.log("Entered to the function!");
-    console.log("UserID: ", userId);
-    if (userId) {
-      console.log("User exists");
-      try {
-        await setDoc(doc(db, "users", userId), {
-          uid: userId,
-          displayName: userFirstName,
-          email: userEmail,
-          photoUrl: userImageUrl,
-        });
+    console.log("UserID: ", uid);
+    if (uid) {
+        console.log("User exists");
+        try {
+            await setDoc(doc(db, "users", uid), {
+                uid: uid,
+                displayName: displayName,
+                email: email,
+                photoUrl: photoUrl,
+            });
 
-        await setDoc(doc(db, "userChats", userId), {});
+            await setDoc(doc(db, "userChats", uid), {});
 
-        console.log("User data added to Firestore successfully.");
-      } catch (error) {
-        console.error("Error adding user data to Firestore:", error);
-      }
+            console.log("User data added to Firestore successfully.");
+        } catch (error) {
+            console.error("Error adding user data to Firestore:", error);
+        }
     }
   };
 

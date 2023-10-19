@@ -29,8 +29,8 @@ export type Task = {
 
 
 export type UserType = {
-  userId: string,
-  userFirstName: string | null,
-  userEmail: string | null,
-  userImageUrl: string,
+  uid: string,
+  displayName: string | null,
+  email: string | null,
+  photoUrl: string,
 };
