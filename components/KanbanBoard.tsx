@@ -238,6 +238,16 @@ function KanbanBoard() {
     setTasks(newTasks);
   }
 
+  // function createTask(columnId: Id) {
+  //   const newTask: Task = {
+  //     id: generateId(),
+  //     columnId,
+  //     content: `Task ${tasks.length + 1}`,
+  //   };
+
+  //   setTasks([...tasks, newTask]);
+  // }
+
   function createTask(columnId: Id) {
     const newTask: Task = {
       id: generateId(),
