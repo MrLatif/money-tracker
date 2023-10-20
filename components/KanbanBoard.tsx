@@ -258,30 +258,19 @@ function KanbanBoard() {
     setTasks([...tasks, newTask]);
   }
 
-  function updateColumn(id: Id, title: string) {
+  async function updateColumn(id: Id, title: string) {
     const newColumns = columns.map((col) => {
       if (col.id !== id) return col;
       return { ...col, title };
     });
 
+    const columnRef = doc(db, "columns", id.toString());
+
+    await updateDoc(columnRef, {
+      title,
+    });
+
     setColumns(newColumns);
-  }
-
-  function deleteColumn(id: Id) {
-    const filteredColumns = columns.filter((col) => col.id !== id);
-    setColumns(filteredColumns);
-
-    const newTasks = tasks.filter((t) => t.columnId !== id);
-    setTasks(newTasks);
-  }
-
-  function createNewColumn() {
-    const columnToAdd: Column = {
-      id: generateId(),
-      title: `Column ${columns.length + 1}`,
-    };
-
-    setColumns([...columns, columnToAdd]);
   }
 }
 
