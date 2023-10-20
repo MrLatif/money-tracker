@@ -4,7 +4,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { Column, Id, Task } from "../types";
 import ColumnContainer from "./ColumnContainer";
-import { doc, updateDoc, getDoc, collection } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  getDoc,
+  getDocs,
+  collection,
+  addDoc,
+  query,
+  where,
+} from "firebase/firestore";
 import {
   DndContext,
   DragEndEvent,
@@ -24,8 +33,6 @@ function KanbanBoard() {
   const [columns, setColumns] = useState<Column[]>([]);
   const columnsId = useMemo(() => columns.map((col) => col.id), [columns]);
   const [tasks, setTasks] = useState<Task[]>([]);
-
-  console.log(columns);
 
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
@@ -78,10 +85,37 @@ function KanbanBoard() {
     }
   };
 
+  const fetchTasks = async () => {
+    // TODO: fetch tasks with columnId = todo
+    try {
+      const q = query(
+        collection(db, "tasks"),
+        where("columnId", "in", ["todo", "doing", "done"])
+      );
+      const querySnap = await getDocs(q);
+
+      const newTasks: Task[] = [];
+
+      querySnap.forEach((doc) => {
+        newTasks.push({
+          id: doc.id,
+          columnId: doc.data().columnId,
+          content: doc.data().content,
+        });
+      });
+
+      setTasks(newTasks);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
+
   useEffect(() => {
     if (columns.length === 0) {
       fetchDefaultColumns();
     }
+
+    fetchTasks();
   }, []);
 
   return (
@@ -248,12 +282,17 @@ function KanbanBoard() {
   //   setTasks([...tasks, newTask]);
   // }
 
-  function createTask(columnId: Id) {
+  async function createTask(columnId: Id) {
     const newTask: Task = {
       id: generateId(),
       columnId,
       content: `Task ${tasks.length + 1}`,
     };
+    const collectionRef = collection(db, "tasks");
+    await addDoc(collectionRef, {
+      columnId,
+      content: `Task ${tasks.length + 1}`,
+    });
 
     setTasks([...tasks, newTask]);
   }
