@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { setDoc, collection, query, where, getDocs, doc, getDoc } from "firebase/firestore";
+import { setDoc, collection, query, where, getDocs, doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import { UserType } from "../../types";
 import Image from "next/image";
@@ -40,6 +40,9 @@ const ChatSearch = () => {
   const handleSelect = async () => {
     //checking whether the chat already exists, if not create
     if(currentUser.user && user){
+
+      // console.log(currentUser);
+
       const combinedId = 
         currentUser.user.id > user.uid 
         ? currentUser.user.id + user.uid 
@@ -55,10 +58,26 @@ const ChatSearch = () => {
           await setDoc(doc(chatRef, combinedId), { messages:[] });
 
           //create user chats
-          userChats: {
-            
-          }
+          await updateDoc(doc(db, "userChats", currentUser.user.id), {
+              [combinedId + ".userInfo"]: {
+                  uid: user.uid,
+                  displayName: user.displayName,
+                  photoUrl: user.photoUrl
+              },
+              [combinedId + ".date"]: serverTimestamp()
+          });
+
+          await updateDoc(doc(db, "userChats", user.uid), {
+              [combinedId + ".userInfo"]: {
+                  uid: currentUser.user.id,
+                  displayName: currentUser.user.firstName,
+                  photoUrl: currentUser.user.imageUrl,
+              },
+              [combinedId + ".date"]: serverTimestamp(),
+          });
         }
+
+        console.log("Success!")
 
       }catch(err){
 
