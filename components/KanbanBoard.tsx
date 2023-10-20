@@ -13,6 +13,7 @@ import {
   addDoc,
   query,
   where,
+  deleteDoc,
 } from "firebase/firestore";
 import {
   DndContext,
@@ -180,8 +181,11 @@ function KanbanBoard() {
     setTasks(newTasks);
   }
 
-  function deleteTask(id: Id) {
+  async function deleteTask(id: Id) {
     const newTasks = tasks.filter((task) => task.id !== id);
+
+    await deleteDoc(doc(db, "tasks", id.toString()));
+
     setTasks(newTasks);
   }
 
