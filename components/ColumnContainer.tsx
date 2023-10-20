@@ -47,6 +47,20 @@ function ColumnContainer(props: Props) {
     transform: CSS.Transform.toString(transform),
   };
 
+  const toggleEditMode = () => {
+    setEditMode((prev) => !prev);
+  };
+  const saveColumnTitle = debounce(() => {
+    updateColumn(column.id, localTitle);
+  }, 0);
+
+  useEffect(() => {
+    if (editMode) {
+      // If in edit mode, update local title immediately
+      saveColumnTitle.flush();
+    }
+  }, [editMode]);
+
   if (isDragging) {
     return (
       <div
@@ -66,19 +80,7 @@ function ColumnContainer(props: Props) {
       "></div>
     );
   }
-  const toggleEditMode = () => {
-    setEditMode((prev) => !prev);
-  };
-  const saveColumnTitle = debounce(() => {
-    updateColumn(column.id, localTitle);
-  }, 0);
 
-  useEffect(() => {
-    if (editMode) {
-      // If in edit mode, update local title immediately
-      saveColumnTitle.flush();
-    }
-  }, [editMode]);
   return (
     <div
       ref={setNodeRef}
