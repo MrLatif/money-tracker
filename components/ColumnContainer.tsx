@@ -1,12 +1,11 @@
 import { Column, Id, Task } from "../types";
-import TrashIcon from "../icons/TrashIcon";
 import { SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useMemo, useState, useEffect } from "react";
-import { PlusCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import TaskCard from "./TaskCard";
-import { doc } from "firebase/firestore";
-import { db } from "../lib/firebase";
+import { debounce } from "lodash";
+
 interface Props {
   column: Column;
   tasks: Task[];
@@ -21,6 +20,7 @@ function ColumnContainer(props: Props) {
     props;
 
   const [editMode, setEditMode] = useState(false);
+  const [localTitle, setLocalTitle] = useState(column.title);
 
   const taskIds = useMemo(() => {
     return tasks.map((task) => task.id);
@@ -66,7 +66,19 @@ function ColumnContainer(props: Props) {
       "></div>
     );
   }
+  const toggleEditMode = () => {
+    setEditMode((prev) => !prev);
+  };
+  const saveColumnTitle = debounce(() => {
+    updateColumn(column.id, localTitle);
+  }, 0);
 
+  useEffect(() => {
+    if (editMode) {
+      // If in edit mode, update local title immediately
+      saveColumnTitle.flush();
+    }
+  }, [editMode]);
   return (
     <div
       ref={setNodeRef}
@@ -120,15 +132,17 @@ function ColumnContainer(props: Props) {
           {editMode && (
             <input
               className="bg-black focus:border-rose-500 border rounded outline-none px-2"
-              value={column.title}
-              onChange={(e) => updateColumn(column.id, e.target.value)}
+              value={localTitle}
+              onChange={(e) => setLocalTitle(e.target.value)}
               autoFocus
               onBlur={() => {
-                setEditMode(false);
+                toggleEditMode();
+                saveColumnTitle();
               }}
               onKeyDown={(e) => {
                 if (e.key !== "Enter") return;
-                setEditMode(false);
+                toggleEditMode();
+                saveColumnTitle();
               }}
             />
           )}
