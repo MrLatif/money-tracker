@@ -1,51 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TrashIcon from "../icons/TrashIcon";
-import { Id, Task } from "../types"
+import { Id, Task } from "../types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { debounce } from "lodash";
 
-interface Props{
-    task: Task;
-    deleteTask: (id: Id) => void;
-    updateTask: (id: Id, content: string) => void;
+interface Props {
+  task: Task;
+  deleteTask: (id: Id) => void;
+  updateTask: (id: Id, content: string) => void;
 }
 
 function TaskCard({ task, deleteTask, updateTask }: Props) {
   const [mouseIsOver, setMouseIsOver] = useState(false);
   const [editMode, setEditMode] = useState(false);
+  const [localContent, setLocalContent] = useState(task.content);
 
   const {
-      setNodeRef,
-      attributes,
-      listeners,
-      transform,
-      transition,
-      isDragging,
+    setNodeRef,
+    attributes,
+    listeners,
+    transform,
+    transition,
+    isDragging,
   } = useSortable({
-      id: task.id,
-      data: {
-          type: "Task",
-          task,
-      },
-      disabled: editMode,
+    id: task.id,
+    data: {
+      type: "Task",
+      task,
+    },
+    disabled: editMode,
   });
 
   const style = {
-      transition,
-      transform: CSS.Transform.toString(transform),
+    transition,
+    transform: CSS.Transform.toString(transform),
   };
+  const saveTaskContent = debounce(() => {
+    updateTask(task.id, localContent);
+  }, 0); // Adjust the delay as needed
 
   const toggleEditMode = () => {
     setEditMode((prev) => !prev);
     setMouseIsOver(false);
   };
 
-  if(isDragging) {
+  useEffect(() => {
+    if (editMode) {
+      // If in edit mode, update local content immediately
+      saveTaskContent.flush();
+    }
+  }, [editMode]);
+
+  if (isDragging) {
     return (
-        <div
-            ref={setNodeRef}
-            style={style}
-            className="
+      <div
+        ref={setNodeRef}
+        style={style}
+        className="
         bg-mainBackgroundColor 
         p-2.5 
         h-[100px] 
@@ -60,7 +72,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
         relative
         opacity-50
       "
-        />
+      />
     );
   }
 
@@ -70,7 +82,7 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
         ref={setNodeRef}
         style={style}
         {...attributes}
-        {...listeners} 
+        {...listeners}
         className="
           bg-mainBackgroundColor 
           p-2.5 
@@ -85,40 +97,41 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
           hover:ring-rose-500
           cursor-grab
           relative
-        "
-      >
+        ">
         <textarea
           className="
-                h-[90%]
-                w-full 
-                resize-none 
-                border-none 
-                rounded 
-                bg-transparent
-                text-white
-                focus:outline-none
-                "
-          value={task.content}
+        h-[90%]
+        w-full 
+        resize-none 
+        border-none 
+        rounded 
+        bg-transparent
+        text-white
+        focus:outline-none
+      "
+          value={localContent}
           autoFocus
           placeholder="Task content here"
-          onBlur={toggleEditMode}
+          onBlur={() => {
+            toggleEditMode();
+            saveTaskContent();
+          }}
           onKeyDown={(e) => {
             if (e.key === "Enter" && e.shiftKey) toggleEditMode();
           }}
-          onChange={(e) => updateTask(task.id, e.target.value)}
-        ></textarea>
+          onChange={(e) => setLocalContent(e.target.value)}></textarea>
       </div>
     );
   }
 
   return (
-      <div
-          ref={setNodeRef}
-          style={style}
-          {...attributes}
-          {...listeners}
-          onClick={toggleEditMode}
-          className="
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      onClick={toggleEditMode}
+      className="
         bg-mainBackgroundColor 
         p-2.5 
         h-[100px] 
@@ -134,22 +147,21 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
         relative
         task
       "
-          onMouseEnter={() => {
-              setMouseIsOver(true);
+      onMouseEnter={() => {
+        setMouseIsOver(true);
+      }}
+      onMouseLeave={() => {
+        setMouseIsOver(false);
+      }}>
+      <p className="my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
+        {task.content}
+      </p>
+      {mouseIsOver && (
+        <button
+          onClick={() => {
+            deleteTask(task.id);
           }}
-          onMouseLeave={() => {
-              setMouseIsOver(false);
-          }}
-      >
-          <p className="my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
-              {task.content}
-          </p>
-          {mouseIsOver && (
-              <button
-                  onClick={() => {
-                      deleteTask(task.id);
-                  }}
-                  className="
+          className="
             stroke-white
             absolute
             right-4
@@ -160,13 +172,12 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
             rounded
             opacity-60
             hover:opacity-100
-          "
-              >
-                  <TrashIcon />
-              </button>
-          )}
-      </div>
+          ">
+          <TrashIcon />
+        </button>
+      )}
+    </div>
   );
 }
 
-export default TaskCard
+export default TaskCard;

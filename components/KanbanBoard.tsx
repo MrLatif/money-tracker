@@ -86,7 +86,6 @@ function KanbanBoard() {
   };
 
   const fetchTasks = async () => {
-    // TODO: fetch tasks with columnId = todo
     try {
       const q = query(
         collection(db, "tasks"),
@@ -258,11 +257,19 @@ function KanbanBoard() {
     }
   }
 
-  function updateTask(id: Id, content: string) {
+  async function updateTask(id: Id, content: string) {
     const newTasks = tasks.map((task) => {
       if (task.id !== id) return task;
       return { ...task, content };
     });
+    try {
+      const taskRef = doc(db, "tasks", id.toString());
+      await updateDoc(taskRef, {
+        content,
+      });
+    } catch (error) {
+      console.log(error);
+    }
 
     setTasks(newTasks);
   }
