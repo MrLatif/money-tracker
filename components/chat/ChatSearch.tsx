@@ -29,8 +29,6 @@ const ChatSearch = () => {
     } catch (err) {
       setErr(true);
     }
-
-    //if(!user) setUser(null);
   };
 
   const handleKey = (e: any) => {
@@ -82,11 +80,9 @@ const ChatSearch = () => {
       }catch(err){
 
       }
-      
+      setUser(null);
+      setUsername(""); 
     }
-    
-
-    //create user chats
   }
 
   return (
@@ -98,9 +94,10 @@ const ChatSearch = () => {
                   className="bg-transparent border-none text-white placeholder:text-stone-300 outline-none text-sm"
                   type="text"
                   placeholder="Find a user"
+                  value={username}
               />
           </div>
-          {!user && <span>User not found</span>}
+          {err && <span>User not found!</span>}
           {user && (
               <div className="userChat" onClick={handleSelect}>
                   <Image
