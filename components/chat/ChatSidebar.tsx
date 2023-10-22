@@ -6,9 +6,6 @@ const ChatSidebar = () => {
       <ChatNavbar />
       <ChatSearch />
       <Chats />
-      <Chats />
-      <Chats />
-      <Chats />
     </div>
   );
 };

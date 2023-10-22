@@ -11,14 +11,14 @@ export default function DashboardPage() {
   return (
       <>
           <ResponsiveAppBar />
-          {user &&
+          {user && (
               <Dashboard
-                  userId={user.id}
-                  userFirstName={user.firstName}
-                  userEmail={user.primaryEmailAddressId}
-                  userImageUrl={user.imageUrl}
+                  uid={user.id}
+                  displayName={user.firstName}
+                  email={user.primaryEmailAddressId}
+                  photoUrl={user.imageUrl}
               />
-          }
+          )}
       </>
   ); 
 }

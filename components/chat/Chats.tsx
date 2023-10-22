@@ -23,29 +23,39 @@ const Chats = () => {
 
         return () => {
           unsub();
-        }
+        };
+      };
 
-      }
+      currentUser.user.id && getChats();
     }
     
   }, [currentUser.user]);
 
+  // if(chats){
+  //   console.log("Object:")
+  //   console.log(Object.entries(chats));
+  // }
+
   return (
-    <div className="">
-      <div className="userChat">
-        <Image
-          className="rounded-[50%] text-white object-cover"
-          src={user?.imageUrl || "/"}
-          alt=""
-          width={50}
-          height={50}
-        />
-        <div className="userChatInfo">
-          <span className="text-[18px] font-medium">Jane</span>
-          <p className="text-[14px] text-stone-300">Hello</p>
-        </div>
+      <div className="chats">
+          {chats &&
+              Object.entries(chats).map((chat: any) => {
+                return (
+                  <div key={chat[0]} className="userChat">
+                      <Image
+                          className="rounded-[50%] text-white object-cover"
+                          src={chat[1]?.userInfo.photoUrl || "/"}
+                          alt=""
+                          width={50}
+                          height={50}
+                      />
+                      <div className="userChatInfo">
+                          <span className="text-[18px] font-medium">{chat[1]?.userInfo.displayName}</span>
+                          <p className="text-[14px] text-stone-300">{chat[1]?.userInfo.lastMessage?.text}</p>
+                      </div>
+                  </div>
+              )})}
       </div>
-    </div>
   );
 };
 

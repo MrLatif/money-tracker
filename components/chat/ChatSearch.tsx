@@ -38,6 +38,8 @@ const ChatSearch = () => {
   const handleSelect = async () => {
     //checking whether the chat already exists, if not create
     if(currentUser.user && user){
+      setUser(null);
+      setUsername("");
 
       // console.log(currentUser);
 
@@ -52,10 +54,12 @@ const ChatSearch = () => {
         const docSnap = await getDoc(docRef);
 
         if (!docSnap.exists()) {
+          console.log("it entered");
           const chatRef = collection(db, "chats");
           await setDoc(doc(chatRef, combinedId), { messages:[] });
 
           //create user chats
+          console.log("create user chat started:");
           await updateDoc(doc(db, "userChats", currentUser.user.id), {
               [combinedId + ".userInfo"]: {
                   uid: user.uid,
@@ -64,6 +68,8 @@ const ChatSearch = () => {
               },
               [combinedId + ".date"]: serverTimestamp()
           });
+
+          console.log("create user chat ended");
 
           await updateDoc(doc(db, "userChats", user.uid), {
               [combinedId + ".userInfo"]: {
@@ -79,9 +85,7 @@ const ChatSearch = () => {
 
       }catch(err){
 
-      }
-      setUser(null);
-      setUsername(""); 
+      } 
     }
   }
 
