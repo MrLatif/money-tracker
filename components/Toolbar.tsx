@@ -180,10 +180,7 @@ function ResponsiveAppBar() {
         </Container>
       </AppBar>
       <CustomTabPanel value={value} index={0}>
-        <Box>
-          <WelcomeCard />
-          <Data />
-        </Box>
+        <Data />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
         <Expenses />

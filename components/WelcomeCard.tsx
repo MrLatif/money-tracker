@@ -15,11 +15,13 @@ const WelcomeCard = () => {
       borderRadius={"16px"}
       boxShadow={"0px 0px 15px 0px rgba(0, 0, 0, 0.10)"}
       display={"flex"}
-      flexDirection={"row"}
+      flexDirection={"column"}
       justifyContent={"center"}
+      alignItems={"center"}
       marginTop={2}
+      marginBottom={2}
       sx={{
-        bgcolor: "#323233",
+        // bgcolor: "#323233",
         color: "white",
         [theme.breakpoints.down("xl")]: {
           width: "63%",

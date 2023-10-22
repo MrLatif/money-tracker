@@ -285,12 +285,18 @@ function KanbanBoard() {
       columnId,
       content: `Task ${tasks.length + 1}`,
     };
-    const collectionRef = collection(db, "tasks");
-    await addDoc(collectionRef, {
-      columnId,
-      content: `Task ${tasks.length + 1}`,
-    });
 
+    try {
+      const collectionRef = collection(db, "tasks");
+
+      const docRef = await addDoc(collectionRef, {
+        columnId,
+        content: `Task ${tasks.length + 1}`,
+      });
+      newTask.id = docRef.id;
+    } catch (error: any) {
+      console.error(error.message);
+    }
     setTasks([...tasks, newTask]);
   }
 

@@ -46,6 +46,7 @@ const Balance = () => {
       }, 0);
     setBalance(newBalance);
   }, [expenses, income]);
+
   return (
     <Box
       display={"flex"}
@@ -119,7 +120,7 @@ const Balance = () => {
             fontFamily={"Poppins"}
             fontSize={16}
             fontWeight={600}
-            marginRight={-4}
+            marginRight={-8}
             color={"#99FC03"}>
             {formattedDate}
           </Typography>

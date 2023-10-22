@@ -71,7 +71,7 @@ export default function FinanceContextProvider({
 }: FinanceContextProviderProps) {
   const [income, setIncome] = useState<IncomeProps[]>([]);
   const [expenses, setExpenses] = useState<ExpensesProps[]>([]);
-  const [actions, setActions] = useState<number>(0);
+  const [actions, setActions] = useState<number>(13);
   const [isPositive, setIsPositive] = useState<boolean | null>(null);
 
   const { user } = useUser();
