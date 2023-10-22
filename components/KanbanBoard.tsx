@@ -31,9 +31,7 @@ import { db } from "../lib/firebase";
 
 function KanbanBoard() {
   const [columns, setColumns] = useState<Column[]>([]);
-
   const [tasks, setTasks] = useState<Task[]>([]);
-
   const [activeColumn, setActiveColumn] = useState<Column | null>(null);
   const [activeTask, setActiveTask] = useState<Task | null>(null);
 
@@ -177,6 +175,31 @@ function KanbanBoard() {
       </DndContext>
     </div>
   );
+
+  // function onDragEnd(event: DragEndEvent) {
+  //   setActiveColumn(null);
+  //   setActiveTask(null);
+
+  //   const { active, over } = event;
+
+  //   if (!over) return;
+  //   const activeColumnId = active.id;
+  //   const overColumnId = over.id;
+
+  //   if (activeColumnId === overColumnId) return;
+
+  //   setColumns((columns) => {
+  //     const activeColumnIndex = columns.findIndex(
+  //       (col) => col.id === activeColumnId
+  //     );
+
+  //     const overColumnIndex = columns.findIndex(
+  //       (col) => col.id === overColumnId
+  //     );
+
+  //     return arrayMove(columns, activeColumnIndex, overColumnIndex);
+  //   });
+  // }
 
   function onDragEnd(event: DragEndEvent) {
     setActiveColumn(null);

@@ -66,6 +66,7 @@ function ColumnContainer(props: Props) {
       <div
         ref={setNodeRef}
         style={style}
+        data-column-id={column.id}
         className="
       bg-columnBackgroundColor
       opacity-40
