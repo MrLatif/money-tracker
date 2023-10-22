@@ -14,10 +14,10 @@ const Stats = () => {
       gap={"11px"}
       sx={{
         [theme.breakpoints.down("xl")]: {
-          width: "678px",
+          width: "728px",
         },
         [theme.breakpoints.up("xl")]: {
-          width: "710px",
+          width: "728px",
         },
       }}>
       <Box
@@ -28,8 +28,8 @@ const Stats = () => {
         gap={"11px"}
         flexShrink={0}
         borderRadius={"27.4px"}
-        width={"200px"}
-        height={"200px"}
+        width={"250px"}
+        height={"250px"}
         boxShadow={"0px -4px 37px 0px rgba(50, 50, 50, 0.30)"}
         sx={{
           background: "linear-gradient(180deg, #383838 0%, #29292A 100%)",

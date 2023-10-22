@@ -22,8 +22,24 @@ const theme = createTheme({
       sm: 600,
       md: 900,
       lg: 1200,
-      xl: 1636,
+      xl: 2036,
     },
   },
 });
-export { Hero, Footer, Navbar, theme, TopBar, SideBar, KanbanBoard, Chat, ChatNavbar, Chats, Message, Messages, ChatSearch, ChatInput, ChatSidebar };
+export {
+  Hero,
+  Footer,
+  Navbar,
+  theme,
+  TopBar,
+  SideBar,
+  KanbanBoard,
+  Chat,
+  ChatNavbar,
+  Chats,
+  Message,
+  Messages,
+  ChatSearch,
+  ChatInput,
+  ChatSidebar,
+};

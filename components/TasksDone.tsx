@@ -16,7 +16,7 @@ const TasksDone = () => {
       gap={"25px"}
       flexShrink={0}
       borderRadius={"27.4px"}
-      height={"200px"}
+      height={"250px"}
       boxShadow={"0px -4px 37px 0px rgba(50, 50, 50, 0.30)"}
       sx={{
         [theme.breakpoints.down("xl")]: {

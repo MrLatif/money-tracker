@@ -7,7 +7,7 @@ export default function DashboardPage() {
   return (
     <Box>
       <ResponsiveAppBar />
-      <Dashboard />
+      {/* <Dashboard /> */}
     </Box>
   );
 }

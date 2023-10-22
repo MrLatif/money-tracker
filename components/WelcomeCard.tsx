@@ -17,6 +17,7 @@ const WelcomeCard = () => {
       display={"flex"}
       flexDirection={"row"}
       justifyContent={"center"}
+      marginTop={2}
       sx={{
         bgcolor: "#323233",
         color: "white",

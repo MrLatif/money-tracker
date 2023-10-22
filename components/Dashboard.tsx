@@ -2,6 +2,7 @@ import { Box, Tab, Tabs, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Data from "./Data";
 import Expenses from "./Expenses";
+import WelcomeCard from "./WelcomeCard";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -50,7 +51,7 @@ const Dashboard = () => {
       display={"flex"}
       justifyContent={"center"}>
       <Box width={"70%"}>
-        {/* <WelcomeCard /> */}
+        <WelcomeCard />
         <Box
           display={"flex"}
           flexDirection={"column"}
@@ -62,9 +63,6 @@ const Dashboard = () => {
             flexDirection={"column"}
             alignItems={"flex-start"}
             gap={3}>
-            {/* <Typography color={"#FFF"} fontSize={24} fontWeight={600}>
-              Dashboard
-            </Typography> */}
             <Box
               display={"flex"}
               paddingLeft={0}

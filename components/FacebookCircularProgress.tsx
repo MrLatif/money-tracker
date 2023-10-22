@@ -16,7 +16,7 @@ export default function FacebookCircularProgress(props: CircularProgressProps) {
           color: "#FFF",
           margin: -2,
         }}
-        size={140}
+        size={180}
         thickness={3.5}
         {...props}
         value={100}
@@ -34,7 +34,7 @@ export default function FacebookCircularProgress(props: CircularProgressProps) {
             strokeLinecap: "round",
           },
         }}
-        size={140}
+        size={180}
         thickness={4.3}
         {...props}
       />
