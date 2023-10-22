@@ -7,9 +7,10 @@ import { UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import { Tab, Tabs } from "@mui/material";
 import { ChangeEvent, useState } from "react";
-import { theme } from ".";
+import { KanbanBoard, theme } from ".";
 import WelcomeCard from "./WelcomeCard";
 import Data from "./Data";
+import Expenses from "./Expenses";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -185,10 +186,10 @@ function ResponsiveAppBar() {
         </Box>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        Item Two
+        <Expenses />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        Item Three
+        <KanbanBoard />
       </CustomTabPanel>
     </Box>
   );

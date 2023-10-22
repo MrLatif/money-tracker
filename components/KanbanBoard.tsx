@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Column, Id, Task } from "../types";
 import ColumnContainer from "./ColumnContainer";
 import {
@@ -118,9 +118,8 @@ function KanbanBoard() {
   return (
     <div
       className="
-        m-auto
         flex
-        min-h-screen
+        mt-10
         w-full
         items-center
         overflow-x-auto
@@ -132,7 +131,7 @@ function KanbanBoard() {
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
         onDragOver={onDragOver}>
-        <div className="m-auto flex gap-2">
+        <div className="flex gap-2">
           <div className="flex gap-4">
             {columns.map((col) => (
               <ColumnContainer
@@ -309,10 +308,10 @@ function KanbanBoard() {
 
     setColumns(newColumns);
   }
-}
 
-function generateId() {
-  return Math.floor(Math.random() * 10001);
+  function generateId() {
+    return Math.floor(Math.random() * 10001);
+  }
 }
 
 export default KanbanBoard;
