@@ -38,7 +38,7 @@ function KanbanBoard() {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 3, //300px
+        distance: 3,
       },
     })
   );
@@ -176,31 +176,6 @@ function KanbanBoard() {
     </div>
   );
 
-  // function onDragEnd(event: DragEndEvent) {
-  //   setActiveColumn(null);
-  //   setActiveTask(null);
-
-  //   const { active, over } = event;
-
-  //   if (!over) return;
-  //   const activeColumnId = active.id;
-  //   const overColumnId = over.id;
-
-  //   if (activeColumnId === overColumnId) return;
-
-  //   setColumns((columns) => {
-  //     const activeColumnIndex = columns.findIndex(
-  //       (col) => col.id === activeColumnId
-  //     );
-
-  //     const overColumnIndex = columns.findIndex(
-  //       (col) => col.id === overColumnId
-  //     );
-
-  //     return arrayMove(columns, activeColumnIndex, overColumnIndex);
-  //   });
-  // }
-
   function onDragEnd(event: DragEndEvent) {
     setActiveColumn(null);
     setActiveTask(null);
@@ -212,18 +187,6 @@ function KanbanBoard() {
     const overColumnId = over.id;
 
     if (activeColumnId === overColumnId) return;
-
-    setColumns((columns) => {
-      const activeColumnIndex = columns.findIndex(
-        (col) => col.id === activeColumnId
-      );
-
-      const overColumnIndex = columns.findIndex(
-        (col) => col.id === overColumnId
-      );
-
-      return arrayMove(columns, activeColumnIndex, overColumnIndex);
-    });
   }
 
   function onDragOver(event: DragOverEvent) {
@@ -246,6 +209,8 @@ function KanbanBoard() {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
         const overIndex = tasks.findIndex((t) => t.id === overId);
 
+        updateTaskDrag(tasks[activeIndex].id, tasks[overIndex].columnId);
+
         tasks[activeIndex].columnId = tasks[overIndex].columnId;
 
         return arrayMove(tasks, activeIndex, overIndex);
@@ -258,6 +223,7 @@ function KanbanBoard() {
     if (isActiveATask && isOverAColumn) {
       setTasks((tasks) => {
         const activeIndex = tasks.findIndex((t) => t.id === activeId);
+        updateTaskDrag(tasks[activeIndex].id, overId);
 
         tasks[activeIndex].columnId = overId;
 
@@ -293,6 +259,17 @@ function KanbanBoard() {
     }
 
     setTasks(newTasks);
+  }
+
+  async function updateTaskDrag(id: Id, columnId: Id) {
+    try {
+      const taskRef = doc(db, "tasks", id.toString());
+      await updateDoc(taskRef, {
+        columnId,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function deleteTask(id: Id) {
