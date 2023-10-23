@@ -23,7 +23,7 @@ export default function FacebookCircularProgress(props: CircularProgressProps) {
       />
       <CircularProgress
         variant="determinate"
-        value={75}
+        value={63}
         sx={{
           color: "#FE1114",
           position: "absolute",
@@ -61,7 +61,7 @@ export default function FacebookCircularProgress(props: CircularProgressProps) {
             fontFamily={"Poppins"}
             fontSize={"40px"}
             fontWeight={700}
-            marginBottom={-1}>{`${Math.round(75)}%`}</Typography>
+            marginBottom={-1}>{`${Math.round(63)}%`}</Typography>
           <Typography
             color={"#FFF"}
             fontFamily={"Poppins"}

@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
-import { Tab, Tabs } from "@mui/material";
+import { Button, Tab, Tabs } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { KanbanBoard, theme } from ".";
 import WelcomeCard from "./WelcomeCard";
@@ -64,7 +64,17 @@ function ResponsiveAppBar() {
         sx={{ bgcolor: "transparent", boxShadow: "none" }}>
         <Container>
           <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
-            <Box display={"inline-flex"} alignItems={"center"}>
+            <Button
+              disableRipple
+              sx={{
+                display: "inline-flex",
+                alignItems: "center",
+                textTransform: "none",
+                "&:hover": {
+                  bgcolor: "transparent",
+                },
+              }}
+              onClick={() => setValue(0)}>
               <Typography
                 color={"#97F704"}
                 fontFamily={"Poppins"}
@@ -85,7 +95,7 @@ function ResponsiveAppBar() {
                 }}>
                 reker
               </Typography>
-            </Box>
+            </Button>
             <Tabs
               value={value}
               onChange={handleChange}
