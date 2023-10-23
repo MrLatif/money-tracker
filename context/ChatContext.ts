@@ -1,42 +1,18 @@
-import { ReactNode, createContext, useEffect, useReducer, useState } from "react";
-import { useUser } from "@clerk/nextjs";
+import { create } from "zustand";
 
-export const ChatContext = createContext(null);
-
-
-interface ChatContextProviderProps {
-    children: ReactNode;
+interface PassingId {
+    displayName: string;
+    photoUrl: string;
+    uid: string;
+    setUser: (displayName: string, photoUrl: string, uid: string) => void;
 }
 
-export const ChatContextProvider = ({
-    children,
-}: ChatContextProviderProps) => {
-    const currentUser = useUser();
-    
-    const INITIAL_STATE = {
-        chatId: "null",
-        user: {}
-    }
+export const useChatContext = create<PassingId>()((set) => ({
+    displayName: "",
+    photoUrl: "",
+    uid: "",
+    setUser(displayName, photoUrl, uid) {
+        set({displayName, photoUrl, uid});
+    },
 
-    
-        const chatReducer = (state: any, action: any) => {
-            switch(action.type){
-                case "CHANGE_USER":
-                    return {
-                        user: action.payload,
-                        chatId:
-                            currentUser.user?.id && action.payload.uid
-                                ? currentUser.user.id > action.payload.uid
-                                    ? currentUser.user.id + action.payload.uid
-                                    : action.payload.uid + currentUser.user.id
-                                : "null",
-                    };
-                default:
-                    return state;
-            }
-        }
-
-
-    const [state, dispatch] = useReducer(chatReducer, INITIAL_STATE);
-    
-}
+}))

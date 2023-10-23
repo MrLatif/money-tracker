@@ -31,10 +31,10 @@ const Chats = () => {
     
   }, [currentUser.user]);
 
-  // if(chats){
-  //   console.log("Object:")
-  //   console.log(Object.entries(chats));
-  // }
+  if(chats){
+    console.log("Object:")
+    console.log(Object.entries(chats));
+  }
 
   return (
       <div className="chats">
