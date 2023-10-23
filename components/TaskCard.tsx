@@ -54,11 +54,11 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
 
   if (isDragging) {
     return (
-      <div
-        ref={setNodeRef}
-        style={style}
-        className="
-        bg-mainBackgroundColor 
+        <div
+            ref={setNodeRef}
+            style={style}
+            className="
+        bg-[#202021] 
         p-2.5 
         h-[100px] 
         min-h-[100px] 
@@ -67,24 +67,24 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
         text-left 
         rounded-xl 
         border-2
-        border-rose-500
+        border-[#97F704]
         cursor-grab
         relative
         opacity-50
       "
-      />
+        />
     );
   }
 
   if (editMode) {
     return (
-      <div
-        ref={setNodeRef}
-        style={style}
-        {...attributes}
-        {...listeners}
-        className="
-          bg-mainBackgroundColor 
+        <div
+            ref={setNodeRef}
+            style={style}
+            {...attributes}
+            {...listeners}
+            className="
+          bg-[#202021] 
           p-2.5 
           h-[100px] 
           min-h-[100px] 
@@ -94,12 +94,13 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
           rounded-xl 
           hover:ring-2 
           hover:ring-inset 
-          hover:ring-rose-500
+          hover:ring-[#97F704]
           cursor-grab
           relative
-        ">
-        <textarea
-          className="
+        "
+        >
+            <textarea
+                className="
         h-[90%]
         w-full 
         resize-none 
@@ -109,30 +110,31 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
         text-white
         focus:outline-none
       "
-          value={localContent}
-          autoFocus
-          placeholder="Task content here"
-          onBlur={() => {
-            toggleEditMode();
-            saveTaskContent();
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "Enter" && e.shiftKey) toggleEditMode();
-          }}
-          onChange={(e) => setLocalContent(e.target.value)}></textarea>
-      </div>
+                value={localContent}
+                autoFocus
+                placeholder="Task content here"
+                onBlur={() => {
+                    toggleEditMode();
+                    saveTaskContent();
+                }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter" && e.shiftKey) toggleEditMode();
+                }}
+                onChange={(e) => setLocalContent(e.target.value)}
+            ></textarea>
+        </div>
     );
   }
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      onClick={toggleEditMode}
-      className="
-        bg-mainBackgroundColor 
+      <div
+          ref={setNodeRef}
+          style={style}
+          {...attributes}
+          {...listeners}
+          onClick={toggleEditMode}
+          className="
+        bg-[#202021] 
         p-2.5 
         h-[100px] 
         min-h-[100px] 
@@ -142,41 +144,43 @@ function TaskCard({ task, deleteTask, updateTask }: Props) {
         rounded-xl 
         hover:ring-2 
         hover:ring-inset 
-        hover:ring-rose-500
+        hover:ring-[#97F704]
         cursor-grab
         relative
         task
       "
-      onMouseEnter={() => {
-        setMouseIsOver(true);
-      }}
-      onMouseLeave={() => {
-        setMouseIsOver(false);
-      }}>
-      <p className="my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
-        {task.content}
-      </p>
-      {mouseIsOver && (
-        <button
-          onClick={() => {
-            deleteTask(task.id);
+          onMouseEnter={() => {
+              setMouseIsOver(true);
           }}
-          className="
+          onMouseLeave={() => {
+              setMouseIsOver(false);
+          }}
+      >
+          <p className="my-auto h-[90%] w-full overflow-y-auto overflow-x-hidden whitespace-pre-wrap">
+              {task.content}
+          </p>
+          {mouseIsOver && (
+              <button
+                  onClick={() => {
+                      deleteTask(task.id);
+                  }}
+                  className="
             stroke-white
             absolute
             right-4
             top-1/2
             -translate-y-1/2
-            bg-columnBackgroundColor
+            bg-[#202021]
             p-2
             rounded
             opacity-60
             hover:opacity-100
-          ">
-          <TrashIcon />
-        </button>
-      )}
-    </div>
+          "
+              >
+                  <TrashIcon />
+              </button>
+          )}
+      </div>
   );
 }
 

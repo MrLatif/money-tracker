@@ -60,7 +60,7 @@ body,
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-rose-900 rounded-xl;
+  @apply bg-[#97F704] rounded-xl;
 }
 
 .task > ::-webkit-scrollbar-thumb {
