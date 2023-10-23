@@ -1,12 +1,9 @@
 "use client";
-
 import Image from "next/image";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 
 const Hero = () => {
-  const handleScroll = () => {};
-
   return (
     <div className="hero">
       <div className="flex-1 pt-36 padding-x">
@@ -18,26 +15,26 @@ const Hero = () => {
           Effortlessly monitor your expenses and manage your finances
         </p>
 
-        <SignedIn>
-          <Link href="/dashboard">
-            <button className="text-white rounded-full bg-emerald-600 min-w-[130px] min-h-[50px]">
+        <Link href="/dashboard">
+          <button className="text-white rounded-full bg-emerald-600 min-w-[130px] min-h-[50px]">
+            Get Started
+          </button>
+        </Link>
+
+        {/* <button className="text-white rounded-full bg-emerald-600 min-w-[130px] min-h-[50px]">
               Get Started
-            </button>
-          </Link>
-        </SignedIn>
-        <SignedOut>
-          <SignInButton redirectUrl="localhost:3000/dashboard">
-            <button className="text-white rounded-full bg-emerald-600 min-w-[130px] min-h-[50px]">
-              Get Started
-            </button>
-          </SignInButton>
-        </SignedOut>
+            </button> */}
       </div>
       <div className="hero__image-container">
         <div className="hero__image">
-          <Image src="/money.svg" alt="hero" fill className="object-contain" />
+          <Image
+            src="/moneyv2.svg"
+            alt="hero"
+            fill
+            className="object-contain"
+          />
         </div>
-        <div className="hero__image-overlay"></div>
+        {/* <div className="hero__image-overlay"></div> */}
       </div>
     </div>
   );
