@@ -4,7 +4,7 @@ import Data from "./Data";
 import Expenses from "./Expenses";
 import "firebase/firestore";
 import { db } from "../lib/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { UserType } from "../types";
 
 //import { collection, addDoc } from "firebase/firestore";
@@ -56,7 +56,6 @@ const Dashboard = ({
   };
 
   useEffect(() => {
-    console.log("Function running");
     StoreUserDataInFirestore();
   }, []);
 
@@ -73,7 +72,11 @@ const Dashboard = ({
                 photoUrl: photoUrl,
             });
 
-            await setDoc(doc(db, "userChats", uid), {});
+            const docRef = doc(db, "userChats", uid);
+            const docSnap = await getDoc(docRef);
+
+            if (!docSnap.exists()) 
+              await setDoc(doc(db, "userChats", uid), {});
 
             console.log("User data added to Firestore successfully.");
         } catch (error) {

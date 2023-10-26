@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 
 const ChatSearch = () => {
-  const [username, setUsername] = useState(" ");
+  const [username, setUsername] = useState("");
   const [user, setUser] = useState<UserType | null>(null);
   const [err, setErr] = useState(false);
 
@@ -19,14 +19,14 @@ const ChatSearch = () => {
       where("displayName", "==", username)
     );
 
-    try { 
+    try {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((userDoc) => {
           // console.log(doc.id, " => ", doc.data());
           setUser(userDoc.data() as UserType);
 
       });
-    } catch (err) {
+    } catch (err) { 
       setErr(true);
     }
   };
@@ -54,7 +54,7 @@ const ChatSearch = () => {
         const docSnap = await getDoc(docRef);
 
         if (!docSnap.exists()) {
-          console.log("it entered");
+          console.log("docSnap does not exist");
           const chatRef = collection(db, "chats");
           await setDoc(doc(chatRef, combinedId), { messages:[] });
 

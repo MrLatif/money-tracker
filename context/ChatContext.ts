@@ -1,18 +1,15 @@
 import { create } from "zustand";
 
-interface PassingId {
-    displayName: string;
-    photoUrl: string;
-    uid: string;
-    setUser: (displayName: string, photoUrl: string, uid: string) => void;
+interface ChatContentProp {
+    chatId: string,
+    user: any;
+    setChatContent: (chatId: string, user: any) => void;
 }
 
-export const useChatContext = create<PassingId>()((set) => ({
-    displayName: "",
-    photoUrl: "",
-    uid: "",
-    setUser(displayName, photoUrl, uid) {
-        set({displayName, photoUrl, uid});
+export const useChatContext = create<ChatContentProp>()((set) => ({
+    chatId: "",
+    user: {},
+    setChatContent(chatId: string, user: any) {
+        set({ chatId, user });
     },
-
-}))
+}));
