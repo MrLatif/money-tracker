@@ -78,7 +78,8 @@ function ColumnContainer(props: Props) {
       rounded-md
       flex
       flex-col
-      "></div>
+      "
+      ></div>
     );
   }
 
@@ -94,7 +95,8 @@ function ColumnContainer(props: Props) {
       rounded-md
       flex
       flex-col
-      ">
+      "
+    >
       {/* Column title */}
       <div
         {...attributes}
@@ -118,7 +120,8 @@ function ColumnContainer(props: Props) {
         flex
         items-center
         justify-between
-      ">
+      "
+      >
         <div className="flex gap-2">
           {!editMode && column.title}
           {editMode && (
@@ -160,7 +163,8 @@ function ColumnContainer(props: Props) {
         onClick={() => {
           createTask(column.id);
         }}
-        className="flex gap-2 items-cente rounded-md p-4 hover:bg-none hover:text-[#97F704] active:bg-[#]">
+        className="flex gap-2 items-cente rounded-md p-4 hover:bg-none hover:text-[#97F704] active:bg-[#]"
+      >
         <PlusCircleIcon className="w-6 h-6" />
         Add task
       </button>
