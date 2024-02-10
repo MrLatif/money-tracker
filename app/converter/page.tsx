@@ -1,9 +1,9 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
 import CurrencyRow from "../../components/CurrencyRow";
+
 const BASE_URL =
   "http://api.exchangeratesapi.io/v1/latest?access_key=675dd6ce3167b42310c718fc3914f62a";
+
 const ConvertPage = () => {
   const [currencyOptions, setCurrencyOptions] = useState<string[]>([]);
   const [toCurrency, setToCurrency] = useState<string>("USD");
@@ -22,6 +22,7 @@ const ConvertPage = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
+
   return (
     <CurrencyRow
       currencyOptions={currencyOptions}
